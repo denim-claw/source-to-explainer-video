@@ -48,7 +48,7 @@ report = dict(
     scene_map=[dict(scene=s['id'], location=s['section'], claim=s['claim'], qualification=s['exceptions'], visual=s['visual']) for s in S],
     condensed_or_omitted=[
         dict(content='long verbatim quotations from the source',
-             reason='claims, conditions and named sources are explained in the author's own sentences'),
+             reason="claims, conditions and named sources are explained in the author's own sentences"),
         dict(content='the full source text and any private scan',
              reason='never packaged or redistributed'),
     ],
