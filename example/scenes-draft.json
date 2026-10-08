@@ -1,0 +1,297 @@
+[
+  {
+    "id": 1,
+    "title": "읽었는데 검토를 못 한다",
+    "section": "Why: comprehension gap",
+    "claim": "자료를 읽는 시간보다, 나온 결과물을 이해하고 검토하는 시간이 더 중요해졌다.",
+    "narration": "이 파이프라인은 검증된 하나의 출처를 음성 해설 영상으로 바꿉니다. 요약을 더 길게 쓰는 것이 목적이 아닙니다. 출처의 주장과 조건을 먼저 고정하고, 그 주장이 화면에서 어떻게 바뀌는지로 설명합니다. 그래서 결과물은 읽어야 하는 문서가 아니라, 걸으면서 들을 수 있는 설명이 됩니다.",
+    "transition_keyword": "그래서 결과물은",
+    "cue_definitions": [
+      {
+        "keyword": "이 파이프라인은",
+        "text": "하나의 검증된 출처 → 해설 영상"
+      },
+      {
+        "keyword": "출처의 주장과",
+        "text": "주장과 조건을 먼저 고정"
+      }
+    ],
+    "diagram": {
+      "objects": [
+        {
+          "type": "box",
+          "pos": [
+            640,
+            240
+          ],
+          "label": [
+            "긴 요약 문서",
+            "이해·검토 가능한 출력"
+          ],
+          "color": "#f08080",
+          "w": 620,
+          "h": 58
+        },
+        {
+          "type": "node",
+          "id": "src",
+          "pos": [
+            210,
+            380
+          ],
+          "label": "검증된 출처",
+          "color": "#f3ce62",
+          "r": 28
+        },
+        {
+          "type": "node",
+          "id": "mid",
+          "pos": [
+            640,
+            380
+          ],
+          "label": [
+            "요약만 쌓기",
+            "주장을 화면으로"
+          ],
+          "color": [
+            "#f08080",
+            "#51dccb"
+          ],
+          "r": 32
+        },
+        {
+          "type": "node",
+          "id": "out",
+          "pos": [
+            1080,
+            380
+          ],
+          "label": "검토 가능한 결과",
+          "color": "#51dccb",
+          "r": 28
+        },
+        {
+          "type": "flow",
+          "from": "src",
+          "to": "mid",
+          "color": "#f3ce62"
+        },
+        {
+          "type": "flow",
+          "from": "mid",
+          "to": "out",
+          "color": "#51dccb"
+        },
+        {
+          "type": "gate",
+          "pos": [
+            905,
+            380
+          ],
+          "h": [
+            150,
+            24
+          ],
+          "color": [
+            "#f08080",
+            "#51dccb"
+          ]
+        },
+        {
+          "type": "label",
+          "pos": [
+            640,
+            500
+          ],
+          "text": "검증 없이 그럴듯한 요약이 가장 위험하다",
+          "color": "#f08080",
+          "size": 24
+        }
+      ]
+    },
+    "visual": "요약만 쌓는 상태가 주장을 화면으로 바꾸는 상태로 바뀌고, 막힌 경로가 열린다.",
+    "exceptions": "문서를 폐기하라는 뜻이 아니다. 검토 가능성의 기준을 올리자는 뜻이다.",
+    "metaphor": "Coordinates, counts and lengths in this diagram are a metaphor, not measured data."
+  },
+  {
+    "id": 2,
+    "title": "같은 사실, 다른 해석",
+    "section": "Core idea: one shape, two interpretations",
+    "claim": "같은 자료도 정답표로 읽으면 복제되어야 하고, 생각 도구로 읽으면 판단이 필요해진다.",
+    "narration": "좋은 출처도 정답표로 다루면 사람을 지웁니다. 반대로 생각 도구로 다루면 판단할 여지가 남습니다. 화면에서 같은 도형이 사각형에서 원으로 변하는 이유입니다. 같은 사실, 다른 해석입니다.",
+    "transition_keyword": "화면에서 같은 도형이",
+    "cue_definitions": [
+      {
+        "keyword": "좋은 출처도",
+        "text": "정답표로 다루면 사람을 지운다"
+      },
+      {
+        "keyword": "화면에서 같은 도형이",
+        "text": "같은 사실 · 다른 해석"
+      }
+    ],
+    "diagram": {
+      "objects": [
+        {
+          "type": "morph",
+          "rect": [
+            340,
+            290,
+            940,
+            470
+          ],
+          "circle": [
+            640,
+            380,
+            105
+          ],
+          "color": [
+            "#f08080",
+            "#51dccb"
+          ],
+          "label_before": "정답표: 그대로 복제해야 한다",
+          "label_after": "생각 도구: 판단이 필요하다"
+        },
+        {
+          "type": "label",
+          "pos": [
+            640,
+            520
+          ],
+          "text": "주장은 그대로, 해석은 내 몫",
+          "color": "#51dccb",
+          "size": 25
+        }
+      ]
+    },
+    "visual": "하나의 도형이 사각형에서 원으로 변하며 해석의 전환을 보여준다. 꼭짓점 대응은 유지된다.",
+    "exceptions": "사각형·원은 자체 비유이며 원저자의 공식 모델이 아니다.",
+    "metaphor": "Coordinates, counts and lengths in this diagram are a metaphor, not measured data."
+  },
+  {
+    "id": 3,
+    "title": "무엇을 검증하고, 무엇을 주장하지 않는가",
+    "section": "Checklist: what to verify",
+    "claim": "영상이 재생되는 것과 설명이 맞는 것은 다른 검사다.",
+    "narration": "마지막 점검입니다. 인코딩된 파일을 실제로 열어 프레임 수와 디코딩을 확인했는가? 자막 타이밍을 정확한 동기화라고 주장하지 않았는가? 듣지 않은 구간을 검수했다고 말하지 않았는가? 이 네 가지를 순서대로 확인합니다.",
+    "transition_keyword": "마지막 점검입니다",
+    "cue_definitions": [
+      {
+        "keyword": "인코딩된 파일을",
+        "text": "프레임 수·전체 디코딩 검사"
+      },
+      {
+        "keyword": "자막 타이밍을",
+        "text": "추정임을 명시"
+      },
+      {
+        "keyword": "듣지 않은 구간을",
+        "text": "미수행으로 표시"
+      },
+      {
+        "keyword": "이 네 가지를",
+        "text": "주장과 검증을 분리"
+      }
+    ],
+    "diagram": {
+      "objects": [
+        {
+          "type": "wbox",
+          "pos": [
+            400,
+            250
+          ],
+          "label": "프레임 수 · 전체 디코딩",
+          "keyword": "인코딩된 파일을",
+          "color": "#51dccb",
+          "w": 420,
+          "h": 62
+        },
+        {
+          "type": "wbox",
+          "pos": [
+            880,
+            250
+          ],
+          "label": "출처 주장 · 조건 대조",
+          "keyword": "자막 타이밍을",
+          "color": "#f3ce62",
+          "w": 420,
+          "h": 62
+        },
+        {
+          "type": "wlink",
+          "from": [
+            400,
+            281
+          ],
+          "to": [
+            400,
+            339
+          ],
+          "keyword": "자막 타이밍을",
+          "color": "#51dccb"
+        },
+        {
+          "type": "wlink",
+          "from": [
+            880,
+            281
+          ],
+          "to": [
+            880,
+            339
+          ],
+          "keyword": "자막 타이밍을",
+          "color": "#f3ce62"
+        },
+        {
+          "type": "wbox",
+          "pos": [
+            400,
+            370
+          ],
+          "label": "자막은 추정이라고 명시",
+          "keyword": "듣지 않은 구간을",
+          "color": "#f3ce62",
+          "w": 420,
+          "h": 62
+        },
+        {
+          "type": "wbox",
+          "pos": [
+            880,
+            370
+          ],
+          "label": "미수행 검사는 미수행으로",
+          "keyword": "이 네 가지를",
+          "color": "#f08080",
+          "w": 420,
+          "h": 62
+        },
+        {
+          "type": "checks",
+          "cols": 4,
+          "y0": 486,
+          "dy": 120,
+          "labels": [
+            "프레임 검사",
+            "출처 대조",
+            "한계 명시",
+            "미수행 구분"
+          ],
+          "keywords": [
+            "인코딩된 파일을",
+            "자막 타이밍을",
+            "듣지 않은 구간을",
+            "이 네 가지를"
+          ]
+        }
+      ]
+    },
+    "visual": "네 점검이 발화 순서대로 활성화된다.",
+    "exceptions": "자동 검사는 발음 품질이나 독립 내용 검수를 대신하지 않는다.",
+    "metaphor": "Coordinates, counts and lengths in this diagram are a metaphor, not measured data."
+  }
+]

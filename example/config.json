@@ -1,0 +1,11 @@
+{
+  "header": "SOURCE → EXPLAINER VIDEO · EXAMPLE BUILD",
+  "footer": "self-made diagram / independent explanation / example project",
+  "width": 1280,
+  "height": 720,
+  "fps": 30,
+  "scene_gap_seconds": 0.6,
+  "crf": 21,
+  "audio_bitrate": "96k",
+  "audio_sample_rate": 48000
+}

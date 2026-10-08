@@ -1,0 +1,38 @@
+# build products
+example/.venv/
+example/samples/
+example/package-check/
+example/master.mp4
+example/master*.mp4
+example/*.zip
+example/poster.jpg
+example/narration.wav
+example/narration.flac
+example/audio/
+example/qa/
+example/render-ffmpeg.log
+example/render.log
+example/render-command.json
+example/render-result.json
+example/scenes.json
+example/script.md
+example/storyboard.md
+example/captions.srt
+example/toolchain.json
+example/requirements.txt
+example/tts-provenance.json
+example/artifact-verification.json
+example/source-map.json
+example/source-fidelity-review.json
+
+# fetched fonts (licence travels with the file; do not commit)
+example/assets/*.otf
+example/assets/*.ttf
+example/assets/*.part
+
+# secrets and local state
+.env
+*.key
+__pycache__/
+*.pyc
+.DS_Store
