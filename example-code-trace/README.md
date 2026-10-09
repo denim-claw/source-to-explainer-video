@@ -5,6 +5,19 @@ Authentication, reading/writing storage and time are injected fakes. The harness
 the original function, records safe local variables before each executed line and records
 storage arguments. It does not contact a service or contain private application code.
 
+## Example output
+
+![Source-line highlight with remaining stock = 3](preview/demo.png)
+
+[Watch or download the 18-second demo](preview/demo.mp4). This is the fictional
+inventory fixture with temporary local English speech and estimated caption timing.
+
+After a verified build, regenerate both preview assets from its encoded master:
+
+```bash
+/tmp/code-trace-venv/bin/python example-code-trace/pipeline.py --export-preview
+```
+
 ## Run from a repository checkout
 
 Python 3.11+, Git, FFmpeg/ffprobe and the root pinned requirements are required.
@@ -51,7 +64,8 @@ Run the regression checks after the debugger build:
 For the extracted source archive, install its pinned requirements and run `render.py`,
 then `qa.py`. It contains prepared data and narration; the repository-level `pipeline.py`
 is not needed to replay it. The archive covers the master renderer; parts/player remain
-local derivatives. Build products are not committed or attached to the public PR.
+local derivatives. Build products remain ignored. `preview/` contains only the intentionally selected
+fictional demo video, encoded-frame capture and verification metadata for reviewers.
 
 Line events show values **before** the highlighted line runs; the next event shows its
 result. Caption and keyword timing is proportional within measured speech, not forced

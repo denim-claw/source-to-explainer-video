@@ -247,12 +247,46 @@ def split_parts(data, max_bytes, max_scenes):
     return parts
 
 
+
+def export_preview():
+    """Export the verified fictional demo; no new synthesis or rendering is needed."""
+    qa = json.loads((BUILD / 'qa/qa.json').read_text())
+    verification = json.loads((BUILD / 'source-verification.json').read_text())
+    master = BUILD / 'master.mp4'
+    assert digest(master) == qa['master_sha256'], 'master changed since QA'
+    assert verification['source_sha256'] == digest(ROOT / 'inventory.py'), 'fixture source changed'
+    scene = json.loads((BUILD / 'scenes.json').read_text())['scenes'][1]
+    timestamp = scene['start'] + scene['highlights'][1]['start'] + 0.1
+    preview = ROOT / 'preview'
+    preview.mkdir(exist_ok=True)
+    shutil.copy2(master, preview / 'demo.mp4')
+    run('ffmpeg', '-v', 'error', '-y', '-ss', timestamp, '-i', master,
+        '-frames:v', '1', preview / 'demo.png')
+    report = {'source': 'independently authored fictional inventory fixture',
+              'source_git_blob': verification['source_git_blob'],
+              'temporary_local_speech': True, 'paid_tts_calls': 0,
+              'duration_seconds': qa['duration'], 'frames': qa['frames'],
+              'video': {'path': 'demo.mp4', 'bytes': (preview / 'demo.mp4').stat().st_size,
+                        'sha256': digest(preview / 'demo.mp4')},
+              'screenshot': {'path': 'demo.png', 'at_seconds': timestamp,
+                             'sha256': digest(preview / 'demo.png')},
+              'full_decode_clean': qa['decode_errors_empty'],
+              'caption_timing': 'proportional estimate; not forced alignment'}
+    (preview / 'verification.json').write_text(json.dumps(report, indent=2) + '\n')
+    print(json.dumps(report, indent=2))
+
+
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--export-preview', action='store_true',
+                        help='copy the verified fictional demo and capture a frame into preview/')
     parser.add_argument('--mode', choices=['debugger', 'lines'], default='debugger')
     parser.add_argument('--max-bytes', type=int, default=15_000_000)
     parser.add_argument('--max-scenes-per-part', type=int, default=2)
     args = parser.parse_args()
+    if args.export_preview:
+        export_preview()
+        return
     scenes, trace = stage(args.mode)
     audio(scenes)
     data = prepare(trace, args.mode)

@@ -1,0 +1,20 @@
+{
+  "source": "independently authored fictional inventory fixture",
+  "source_git_blob": "11ba334e8d684f67f33c3908673942c5e37925f7",
+  "temporary_local_speech": true,
+  "paid_tts_calls": 0,
+  "duration_seconds": 18.366667,
+  "frames": 551,
+  "video": {
+    "path": "demo.mp4",
+    "bytes": 471161,
+    "sha256": "b49bf8bd82e5e17da58e42564dcef45d58e8b13a4b19851cb867b66c4a940103"
+  },
+  "screenshot": {
+    "path": "demo.png",
+    "at_seconds": 7.991917067307692,
+    "sha256": "0078ea71103528240e7ce3d0b1ccecdbcd9da9fcd6fd3026643fa789b5c367ac"
+  },
+  "full_decode_clean": true,
+  "caption_timing": "proportional estimate; not forced alignment"
+}
