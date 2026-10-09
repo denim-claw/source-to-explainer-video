@@ -33,9 +33,11 @@ references/
   tts.md                        per-scene synthesis, provenance, reuse rules, captions
   video-qa.md                   the encoded-file checklist
   source-fidelity.md            inventory/conditions/risk transforms
-  from-code-review.md           using the same pipeline to explain a diff or PR
+  from-code-review.md           behavioural explanation of a diff or PR
+  code-trace.md                 source-line / recorded-debugger walkthroughs
   asd-ste-80.md                 the ~80 % strictness clear-text pass
 example/                        a complete, runnable 3-scene project
+example-code-trace/             fictional line/value trace + multi-part player; shared pipeline
 requirements.txt                pinned dependencies
 ```
 

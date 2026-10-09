@@ -96,6 +96,12 @@ ALLOWED = ['README.md', 'LICENSE', 'requirements.txt', 'toolchain.json', 'tts-pr
            'source-fidelity-review.json', 'source-map.json',
            'assets/README.md', 'assets/fetch-font.sh', 'assets/font-license.txt',
            'assets/NotoSansCJKkr-Regular.otf']
+# Renderer adapters can explicitly whitelist their local support files.
+for extra in json.loads((R / 'config.json').read_text()).get('package_extra_files', []):
+    member = pathlib.PurePosixPath(extra)
+    assert not member.is_absolute() and '..' not in member.parts, extra
+    assert (R / extra).is_file(), f'missing package support file: {extra}'
+    ALLOWED.append(extra)
 ALLOWED += [f'audio/scene-{i + 1:02d}.wav' for i in range(len(S))]
 ALLOWED += [f'audio/scene-{i + 1:02d}-metadata.json' for i in range(len(S))
             if (R / f'audio/scene-{i + 1:02d}-metadata.json').exists()]

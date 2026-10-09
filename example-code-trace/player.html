@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fictional inventory · code trace</title>
+<style>
+body{font:18px system-ui;background:#101923;color:#edf3f5;max-width:960px;margin:24px auto;padding:0 16px}
+video{width:100%;background:#000}button,a{font:inherit;color:#51dccb}button{background:#182532;border:1px solid #395466;padding:10px;margin:5px}
+button[aria-pressed="true"]{border-color:#51dccb}p{line-height:1.5}
+</style>
+<h1>Fictional inventory · code trace</h1>
+<p>Local demonstration with temporary speech. Values come from injected fakes, not a live system.</p>
+<nav id="parts" aria-label="Video parts"></nav>
+<video id="video" controls playsinline preload="metadata"></video>
+<p><a id="download" download>Download this part</a></p><p id="status" role="status"></p>
+<script>
+// pipeline.py replaces this JSON marker. Relative files work without a fetch/server.
+const parts = __PARTS_JSON__;
+const video = document.getElementById('video');
+const buttons = parts.map((part, index) => {
+  const button = document.createElement('button');
+  button.textContent = `Part ${index + 1} · scenes ${part.scenes.join(', ')}`;
+  button.onclick = () => select(index);
+  document.getElementById('parts').append(button);
+  return button;
+});
+function select(index) {
+  video.pause(); video.src = parts[index].path; video.load();
+  document.getElementById('download').href = parts[index].path;
+  buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+  document.getElementById('status').textContent = `Part ${index + 1} of ${parts.length}`;
+}
+if(parts.length) select(0);
+</script></html>

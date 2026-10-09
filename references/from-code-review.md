@@ -3,6 +3,8 @@
 Same pipeline, different "source verification". The goal is a narrated explanation of a
 change so it can be *heard* while walking, not a summary of the diff text.
 
+For line-level execution or a debugger-style value walkthrough, use [code-trace.md](code-trace.md) instead; the line-by-line and ~8-minute rules below apply to behavioural reviews.
+
 ## 1. The source is the change, not the description
 
 Collect, in this order:
