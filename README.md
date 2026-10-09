@@ -1,5 +1,7 @@
 # source-to-explainer-video
 
+English | [한국어](README.ko.md)
+
 Turn one **verified source** — a book chapter, a paper, a spec, a code change — into a
 narrated explainer video with semantic diagrams, subtitles, a source-fidelity review and
 an audited, re-renderable source package.
@@ -15,6 +17,19 @@ skills into one:
 | `karpathy-output-understanding` | clear-text pass (ASD-STE-inspired), diagram, interactive page, "the human reviews outputs more than code" framing |
 | `book-concept-video` | scene planning, per-scene TTS with provenance, measured timing, pure-function frame renderer, source fidelity |
 | `video-deliverable-qa` | verify the **encoded file**, cut-point samples, derivative ownership, archive replay |
+
+## Explanation styles
+
+| Viewer wants | Style |
+|---|---|
+| Understand a book, paper or spec | narrated concept animation |
+| Understand what a code change does | behavioural review using diagrams |
+| Follow source execution and changing values | source-line or recorded-debugger trace |
+
+![Fictional code-trace example](example-code-trace/preview/demo.gif)
+
+[Watch the demo with temporary speech](example-code-trace/preview/demo.mp4) ·
+[Run the code-trace example](example-code-trace/README.md). The GIF is silent.
 
 ## Why video first
 
@@ -33,9 +48,11 @@ references/
   tts.md                        per-scene synthesis, provenance, reuse rules, captions
   video-qa.md                   the encoded-file checklist
   source-fidelity.md            inventory/conditions/risk transforms
-  from-code-review.md           using the same pipeline to explain a diff or PR
+  from-code-review.md           behavioural explanation of a diff or PR
+  code-trace.md                 source-line / recorded-debugger walkthroughs
   asd-ste-80.md                 the ~80 % strictness clear-text pass
 example/                        a complete, runnable 3-scene project
+example-code-trace/             fictional line/value trace + multi-part player; shared pipeline
 requirements.txt                pinned dependencies
 ```
 

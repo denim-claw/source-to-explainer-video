@@ -1,6 +1,6 @@
 ---
 name: source-to-explainer-video
-description: Use when a source must become a narrated explainer video.
+description: Use when a source or code execution must become a narrated explainer video, including line-level or debugger-style walkthroughs.
 version: 1.0.0
 author: min (curator) — merged from book-concept-video + video-deliverable-qa + karpathy-output-understanding
 license: MIT
@@ -44,6 +44,7 @@ replacing a real renderer with a slide deck of static text.
 
 | Request | Emit |
 |---|---|
+| "코드 레벨로", "디버거처럼", "실행 순서/값을 따라가기" | narrated code-trace MP4; read `references/code-trace.md`, then reuse §4–§7 |
 | "설명 영상", "3Blue1Brown 스타일", no format named | narrated MP4 (§4–§7) |
 | "다이어그램", "구조도" | diagram artifact (§3b) |
 | "웹", "HTML", "탭" | mobile-first 3-tab page (§3c) |
@@ -51,6 +52,18 @@ replacing a real renderer with a slide deck of static text.
 
 Report every artifact with absolute path, duration, size, SHA256, the QA reports and the
 fidelity report. Never publish or upload without a separate explicit instruction.
+
+### Choose the explanation style for a video
+
+| Viewer wants | Read | Approach |
+|---|---|---|
+| Understand a book, paper or spec | shared workflow below | narrated concept animation |
+| Understand what a code change does | `references/from-code-review.md` | behavioural delta; no line-by-line diff narration |
+| Follow code execution and changing values | `references/code-trace.md` | source-line highlights or a recorded debugger harness |
+
+These are styles inside this skill, not nested skills. Diagram/HTML remain output formats.
+Code-trace overrides the behavioural-review pacing rule; audio, measured preparation,
+rendering, encoded-file QA and packaging stay shared.
 
 ## 1. Fix the source before anything else
 
@@ -80,8 +93,9 @@ For code sources the "range" is the diff plus surrounding files plus test eviden
   sentence, caption band. Add one annotation at a time.
 - Produce the clear-text pass even when the output is video: it keeps narration short,
   ordered and free of invented facts.
-- Expected duration: roughly 40–60 s of finished video per scene; a single code change
-  should stay under ~8 minutes of narration.
+- Expected duration: roughly 40–60 s of finished video per scene; a behavioural code review
+  should stay under ~8 minutes of narration. Code-trace episodes instead use the agreed
+  code range and split at scene boundaries when a delivery size limit requires it.
 
 ## 3. Optional artifacts
 

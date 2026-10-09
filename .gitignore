@@ -36,3 +36,6 @@ example/assets/*.part
 __pycache__/
 *.pyc
 .DS_Store
+
+# code-trace demo: derived assets stay local
+example-code-trace/build/
