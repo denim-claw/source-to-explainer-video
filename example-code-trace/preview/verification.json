@@ -15,6 +15,18 @@
     "at_seconds": 7.991917067307692,
     "sha256": "0078ea71103528240e7ce3d0b1ccecdbcd9da9fcd6fd3026643fa789b5c367ac"
   },
+  "gif": {
+    "path": "demo.gif",
+    "bytes": 306176,
+    "sha256": "d558f7d8a0bd0de367694009eb4cd454686d4a89e1b14f4177a6cbe9b3edc6dd",
+    "width": 800,
+    "height": 450,
+    "fps": 10,
+    "frames": 184,
+    "duration_seconds": 18.4,
+    "full_decode_clean": true,
+    "audio": false
+  },
   "full_decode_clean": true,
   "caption_timing": "proportional estimate; not forced alignment"
 }

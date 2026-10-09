@@ -1,5 +1,7 @@
 # Fictional code-trace example
 
+English | [한국어](README.ko.md)
+
 This example follows `inventory.py` as it reserves two units from a stock of five.
 Authentication, reading/writing storage and time are injected fakes. The harness runs
 the original function, records safe local variables before each executed line and records
@@ -7,12 +9,13 @@ storage arguments. It does not contact a service or contain private application 
 
 ## Example output
 
-![Source-line highlight with remaining stock = 3](preview/demo.png)
+![Source-line highlight with remaining stock = 3](preview/demo.gif)
 
 [Watch or download the 18-second demo](preview/demo.mp4). This is the fictional
 inventory fixture with temporary local English speech and estimated caption timing.
 
-After a verified build, regenerate both preview assets from its encoded master:
+The animated GIF is silent; the MP4 includes temporary local English speech.
+After a verified build, regenerate the MP4, GIF and still capture from its encoded master:
 
 ```bash
 /tmp/code-trace-venv/bin/python example-code-trace/pipeline.py --export-preview
@@ -65,7 +68,7 @@ For the extracted source archive, install its pinned requirements and run `rende
 then `qa.py`. It contains prepared data and narration; the repository-level `pipeline.py`
 is not needed to replay it. The archive covers the master renderer; parts/player remain
 local derivatives. Build products remain ignored. `preview/` contains only the intentionally selected
-fictional demo video, encoded-frame capture and verification metadata for reviewers.
+fictional MP4/GIF demo, encoded-frame capture and verification metadata for reviewers.
 
 Line events show values **before** the highlighted line runs; the next event shows its
 result. Caption and keyword timing is proportional within measured speech, not forced

@@ -262,6 +262,20 @@ def export_preview():
     shutil.copy2(master, preview / 'demo.mp4')
     run('ffmpeg', '-v', 'error', '-y', '-ss', timestamp, '-i', master,
         '-frames:v', '1', preview / 'demo.png')
+    gif = preview / 'demo.gif'
+    filters = ('[0:v]fps=10,scale=800:-1:flags=lanczos,split[a][b];'
+               '[a]palettegen=max_colors=128:stats_mode=diff[p];'
+               '[b][p]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle')
+    run('ffmpeg', '-v', 'error', '-y', '-i', master, '-filter_complex', filters,
+        '-loop', '0', gif)
+    probe = json.loads(run('ffprobe', '-v', 'error', '-count_frames', '-show_streams',
+                           '-show_format', '-of', 'json', gif).stdout)
+    stream = probe['streams'][0]
+    assert (stream['width'], stream['height']) == (800, 450)
+    assert abs(float(probe['format']['duration']) - qa['duration']) <= 0.1
+    assert int(stream['nb_read_frames']) > 1
+    decoded = run('ffmpeg', '-v', 'error', '-i', gif, '-f', 'null', '-')
+    assert not decoded.stderr
     report = {'source': 'independently authored fictional inventory fixture',
               'source_git_blob': verification['source_git_blob'],
               'temporary_local_speech': True, 'paid_tts_calls': 0,
@@ -270,6 +284,11 @@ def export_preview():
                         'sha256': digest(preview / 'demo.mp4')},
               'screenshot': {'path': 'demo.png', 'at_seconds': timestamp,
                              'sha256': digest(preview / 'demo.png')},
+              'gif': {'path': 'demo.gif', 'bytes': gif.stat().st_size, 'sha256': digest(gif),
+                      'width': 800, 'height': 450, 'fps': 10,
+                      'frames': int(stream['nb_read_frames']),
+                      'duration_seconds': float(probe['format']['duration']),
+                      'full_decode_clean': True, 'audio': False},
               'full_decode_clean': qa['decode_errors_empty'],
               'caption_timing': 'proportional estimate; not forced alignment'}
     (preview / 'verification.json').write_text(json.dumps(report, indent=2) + '\n')
@@ -279,7 +298,7 @@ def export_preview():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--export-preview', action='store_true',
-                        help='copy the verified fictional demo and capture a frame into preview/')
+                        help='export the verified fictional MP4, GIF and captured frame into preview/')
     parser.add_argument('--mode', choices=['debugger', 'lines'], default='debugger')
     parser.add_argument('--max-bytes', type=int, default=15_000_000)
     parser.add_argument('--max-scenes-per-part', type=int, default=2)
