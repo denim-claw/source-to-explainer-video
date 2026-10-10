@@ -59,3 +59,24 @@ across episodes so the series becomes scannable.
 - Every condition stated in narration appears in the diagram, and vice versa.
 - The "not verified" scene is present whenever anything was not run.
 - No fabricated line numbers or coverage percentages.
+
+## 6. Architecture review: a whole codebase instead of one change
+
+Use the same behavioural style when the viewer wants to understand how a system is built,
+not what one PR changed.
+
+- **Pin the source.** Record repository, commit and the Git blob hash of every file a
+  scene cites. Fetch those files at that commit and fail if a blob differs. Cite line
+  ranges in the scene plan, not in narration.
+- **Order scenes along one request.** Start with a single map (entry point → queue →
+  worker → model → storage), then follow the path: how work is claimed, how failure is
+  recovered, where state lives, what is swappable, where isolation holds.
+- **Prefer the repository's own design documents** (spec, ADRs) for intent, and the
+  source for behaviour. When they disagree, say which one the scene follows.
+- **End with reviewer notes.** Name the tests you actually ran at that commit, their
+  counts, every failure and its cause, and what was only read (SQL paths, cloud
+  backends, scale targets). A design goal is not a measurement.
+- **Say it is unofficial.** An explanation of someone else's public repository is not
+  the maintainers' documentation. Keep their licence and do not copy their branding.
+
+`example-architecture/` reviews `yc-software/qm` this way in seven scenes.

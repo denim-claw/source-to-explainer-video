@@ -1,0 +1,151 @@
+1
+00:00:00,000 --> 00:00:06,617
+This video explains one section of Eric Raymond's essay, The Cathedral and the Bazaar.
+
+2
+00:00:06,617 --> 00:00:10,540
+The section is called Release Early, Release Often.
+
+3
+00:00:10,540 --> 00:00:19,696
+Most developers once believed that early versions are buggy versions, and that buggy versions wear out users' patience.
+
+4
+00:00:19,696 --> 00:00:27,390
+If the goal is to show users as few bugs as possible, releases slow to one every six months or less.
+
+5
+00:00:27,390 --> 00:00:30,467
+Between releases, developers debug hard.
+
+6
+00:00:30,467 --> 00:00:34,160
+Raymond calls this the cathedral-building style.
+
+7
+00:00:34,760 --> 00:00:37,614
+Linus Torvalds did the opposite.
+
+8
+00:00:37,614 --> 00:00:41,449
+Raymond turns this into his seventh lesson.
+
+9
+00:00:41,449 --> 00:00:42,697
+Release early.
+
+10
+00:00:42,697 --> 00:00:43,946
+Release often.
+
+11
+00:00:43,946 --> 00:00:46,532
+And listen to your customers.
+
+12
+00:00:46,532 --> 00:00:50,724
+Quick releases with user feedback were not new.
+
+13
+00:00:50,724 --> 00:00:53,934
+They had long been a Unix tradition.
+
+14
+00:00:53,934 --> 00:00:56,699
+What was new was the intensity.
+
+15
+00:00:56,699 --> 00:01:03,120
+Around 1991, Linus sometimes released a new kernel more than once a day.
+
+16
+00:01:03,720 --> 00:01:06,003
+So what was Linus maximizing?
+
+17
+00:01:06,003 --> 00:01:10,964
+Users were stimulated by the prospect of a piece of the action.
+
+18
+00:01:10,964 --> 00:01:16,869
+They were rewarded by constant, sometimes daily, improvement in their work.
+
+19
+00:01:16,869 --> 00:01:23,169
+As a result, the person-hours spent on debugging and development were maximized.
+
+20
+00:01:23,169 --> 00:01:24,586
+There was a price.
+
+21
+00:01:24,586 --> 00:01:31,200
+The code could become unstable, and an intractable bug could burn out the user base.
+
+22
+00:01:31,800 --> 00:01:34,491
+The eighth lesson reads like this.
+
+23
+00:01:34,491 --> 00:01:46,125
+Given a large enough beta-tester and co-developer base, almost every problem will be characterized quickly, and the fix will be obvious to someone.
+
+24
+00:01:46,125 --> 00:01:50,636
+Put shortly, given enough eyeballs, all bugs are shallow.
+
+25
+00:01:50,636 --> 00:01:53,090
+Raymond calls this Linus's Law.
+
+26
+00:01:53,090 --> 00:01:55,148
+Linus corrected one point.
+
+27
+00:01:55,148 --> 00:02:05,120
+The person who finds a problem is usually not the person who understands and fixes it, and finding it is the bigger challenge.
+
+28
+00:02:05,720 --> 00:02:10,558
+Linus's Law can be rephrased: debugging is parallelizable.
+
+29
+00:02:10,558 --> 00:02:17,148
+Debuggers need to talk to one coordinating developer, but hardly to each other.
+
+30
+00:02:17,148 --> 00:02:24,739
+So debugging avoids the quadratic coordination cost that makes adding developers a problem.
+
+31
+00:02:24,739 --> 00:02:28,910
+Each user stresses the program in a different way.
+
+32
+00:02:28,910 --> 00:02:32,080
+That is why more users find more bugs.
+
+33
+00:02:32,680 --> 00:02:34,783
+Raymond argues like this.
+
+34
+00:02:34,783 --> 00:02:44,711
+If Linus's Law were false, a system as complex as the Linux kernel should have collapsed under undiscovered deep bugs.
+
+35
+00:02:44,711 --> 00:02:48,917
+That it did not, he says, is explained by the law.
+
+36
+00:02:48,917 --> 00:02:55,227
+This is an argument from the Linux experience, not a controlled experiment.
+
+37
+00:02:55,227 --> 00:02:57,499
+Linus also hedged his bets.
+
+38
+00:02:57,499 --> 00:03:06,080
+Kernel version numbers separate stable releases from the cutting edge, so users choose their own risk.

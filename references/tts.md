@@ -57,3 +57,11 @@ KEY = load_key()                # lazy: only when audio is genuinely missing
 - Compare the raw WAV set against the concatenated narration: for lossless formats the
   PCM must be byte-identical after decode.
 - None of these establish pronunciation quality or naturalness — human listening does.
+
+## Reference implementation
+
+`example/gemini_tts.py` implements the rules above for the Gemini interactions endpoint:
+transcript and `speech_metadata.style` in separate fields, the returned WAV kept as is,
+metadata with id/usage/sha256, reuse before the key is read, and a plausibility bound on
+length. `example/asr_check.py` adds an optional whisper.cpp transcript comparison per
+scene; report it as a similarity score, never as a pronunciation grade.
