@@ -1,26 +1,26 @@
 {
   "ko": {
     "language": "ko",
-    "duration_seconds": 236.433333,
-    "frames": 7093,
+    "duration_seconds": 171.433333,
+    "frames": 5143,
     "video": {
       "path": "ko.mp4",
-      "bytes": 5241399,
-      "sha256": "56cf331111b7c3e085cf28e923ef441036ab229b5ba3db6b26f27c7942faa4bd"
+      "bytes": 4244852,
+      "sha256": "a7669826b1fae82e53770aba6e53033af82e75cc9e954d8b4d397a0ff437811a"
     },
     "captions": {
       "path": "ko.srt",
-      "sha256": "dbb870ce0e0d928e1358e8196b05501f9615df2e6e34f7f8ecb7b9aaab9aab14",
+      "sha256": "5bc3a11760acc1a620cdfe205010f1f6be5353e236a64841f2f95f4c3ea6b8c7",
       "timing": "proportional estimate inside measured scenes; not forced alignment"
     },
     "screenshot": {
       "path": "ko.png",
-      "at_seconds": 72.27692307692308
+      "at_seconds": 97.57233830845772
     },
     "gif": {
       "path": "ko.gif",
-      "bytes": 155003,
-      "start_seconds": 67.27692307692308,
+      "bytes": 165320,
+      "start_seconds": 92.57233830845772,
       "seconds": 9.0,
       "fps": 10,
       "width": 800,
@@ -30,15 +30,14 @@
     "asr": {
       "tool": "whisper.cpp whisper-cli",
       "model": "ggml-small.bin",
-      "min_similarity": 0.828,
+      "min_similarity": 0.754,
       "per_scene": [
-        0.924,
-        0.867,
-        0.925,
-        0.934,
-        0.828,
-        0.882,
-        0.953
+        0.873,
+        0.754,
+        0.775,
+        0.756,
+        0.814,
+        0.891
       ],
       "scope": "automatic transcript similarity per scene; not a human listen and not a pronunciation grade"
     },
@@ -46,26 +45,26 @@
   },
   "en": {
     "language": "en",
-    "duration_seconds": 234.266667,
-    "frames": 7028,
+    "duration_seconds": 165.0,
+    "frames": 4950,
     "video": {
       "path": "en.mp4",
-      "bytes": 5396662,
-      "sha256": "c5d99a8d1235f75a7382fae8fa78af19f69ed6427b7b58e7a501184d226dc28d"
+      "bytes": 4243690,
+      "sha256": "dba02546f1951a611dbffdf624256239745b68345c277f6815852dca0e0fe757"
     },
     "captions": {
       "path": "en.srt",
-      "sha256": "61bb680321c1de32efc3a9fd2ef4c47683b789f7bad02eb0f7401be3e6e87ab1",
+      "sha256": "17c361e48e8d8361d37af4ee4b9280ad80e15eede4257b5778631624291891aa",
       "timing": "proportional estimate inside measured scenes; not forced alignment"
     },
     "screenshot": {
       "path": "en.png",
-      "at_seconds": 71.56736842105263
+      "at_seconds": 90.29756097560976
     },
     "gif": {
       "path": "en.gif",
-      "bytes": 166090,
-      "start_seconds": 66.56736842105263,
+      "bytes": 198641,
+      "start_seconds": 85.29756097560976,
       "seconds": 9.0,
       "fps": 10,
       "width": 800,
@@ -75,15 +74,14 @@
     "asr": {
       "tool": "whisper.cpp whisper-cli",
       "model": "ggml-small.bin",
-      "min_similarity": 0.979,
+      "min_similarity": 0.97,
       "per_scene": [
+        0.99,
+        0.988,
         1.0,
         1.0,
-        1.0,
-        1.0,
-        0.979,
         0.998,
-        0.992
+        0.97
       ],
       "scope": "automatic transcript similarity per scene; not a human listen and not a pronunciation grade"
     },

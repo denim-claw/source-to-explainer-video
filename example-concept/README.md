@@ -71,7 +71,7 @@ masters and captions are copied into `preview/`.
 | Audio | peak 0.796 (en) and 0.742 (ko), no clipped samples |
 | Determinism | forward/reverse renders give equal RGB hashes (same machine) |
 | Package replay | the 56-file archive, extracted to a clean folder, renders a 2-second MP4 and matches RGB hashes |
-| ASR comparison | whisper.cpp small, per scene; similarity to the script 0.987–1.0 (en), 0.904–0.985 (ko) |
+| ASR comparison | whisper.cpp small, per scene; similarity to the script 0.998–1.0 (en), 0.868–0.993 (ko) |
 
 Speech: Gemini `gemini-3.8-flash-lite-tts`, voice `Charon`.
 

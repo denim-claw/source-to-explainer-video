@@ -45,3 +45,5 @@ example-concept/build/
 example-concept/audio-cache/
 example-architecture/build/
 example-architecture/audio-cache/
+example-debugger/build/
+example-debugger/audio-cache/

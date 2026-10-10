@@ -10,8 +10,8 @@ audits the encoded MP4 itself, and leaves a source package that re-renders the s
 
 ## Three example videos
 
-There are three explanation styles, and each has a real example. The first two were built
-in Korean and in English from one shared plan.
+There are three explanation styles, each with an example built from a public source. All
+three were built in Korean and in English from one shared plan.
 
 ### 1. A book section as a concept video
 
@@ -37,15 +37,21 @@ what was not verified.
 - Captions: [English SRT](example-architecture/preview/en.srt) · [Korean SRT](example-architecture/preview/ko.srt)
 - [How it is built and checked](example-architecture/README.md)
 
-### 3. Code execution as a debugger-style trace
+### 3. An open-source function as a debugger trace
 
-A fictional inventory function runs with injected fake auth, storage and clock. The video
-highlights source lines and shows the recorded values.
+Six scenes follow the function in [selvage](https://github.com/selvage-lab/selvage) that
+computes which lines a hunk actually changed. The original function from a pinned commit
+runs on the repository's own test input, and only the values recorded at each line appear.
+The key moment is a deleted line that does not advance the line counter.
 
-![Highlighted source line and remaining stock of 3](example-code-trace/preview/demo.gif)
+![While a deleted line is processed, current_line stays put and the change range fills with 3](example-debugger/preview/en.gif)
 
-- Video: [18-second demo (temporary English speech)](example-code-trace/preview/demo.mp4)
-- [How it is built and checked](example-code-trace/README.md)
+- Video: [English (2:45)](example-debugger/preview/en.mp4) · [Korean (2:51)](example-debugger/preview/ko.mp4)
+- Captions: [English SRT](example-debugger/preview/en.srt) · [Korean SRT](example-debugger/preview/ko.srt)
+- [How it is built and checked](example-debugger/README.md)
+
+For the smallest starting point, see the [fictional inventory example](example-code-trace/README.md):
+18 seconds, with the source-line mode and a multi-part player.
 
 GIFs are silent. Download the MP4s to hear the narration.
 
@@ -71,7 +77,7 @@ Explaining a source does not give you the right to redistribute it. The public e
   Publication License, which covers *The Cathedral and the Bazaar*.
 - **Public repositories under permissive licences** such as MIT or Apache-2.0, pinned to a
   commit with the licence stated.
-- **Material you wrote yourself**, like the fictional inventory function.
+- **Material you wrote yourself**, like the fictional inventory function in the minimal example.
 
 Keep commercial books, paid courses and other people's social posts to short quotations,
 or get the rights holder's permission before making them the core source. Keep private
@@ -83,7 +89,8 @@ Run from the repository root.
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-PATH=".venv/bin:$PATH" bash example/assets/fetch-font.sh   # fetch the OFL font
+PATH=".venv/bin:$PATH" bash example/assets/fetch-font.sh        # text font (OFL)
+PATH=".venv/bin:$PATH" bash example/assets/fetch-font.sh mono   # monospace code font (OFL)
 
 # Minimal example with placeholder audio (room tone, not speech)
 cd example
@@ -98,10 +105,11 @@ bash make_demo_audio.sh
 ../.venv/bin/python package.py
 cd ..
 
-# Book-section and architecture examples, Korean and English
+# The three public-source examples, Korean and English
 export GEMINI_API_KEY=...                  # used only for scenes without cached speech
 .venv/bin/python example-concept/pipeline.py
 .venv/bin/python example-architecture/pipeline.py --lang en
+.venv/bin/python example-debugger/pipeline.py
 ```
 
 Speech is synthesised per scene with Gemini TTS (`gemini-3.8-flash-lite-tts`). Audio whose
@@ -125,7 +133,8 @@ references/
 example/                     shared pipeline and a 3-scene minimal example
 example-concept/             book section → concept video (Korean, English)
 example-architecture/        QM repository → architecture review (Korean, English)
-example-code-trace/          fictional function → debugger-style trace
+example-debugger/            selvage function → debugger trace (Korean, English)
+example-code-trace/          fictional function → minimal code-trace example
 requirements.txt             pinned dependencies
 ```
 
@@ -159,5 +168,5 @@ requirements.txt             pinned dependencies
 - Fonts are fetched separately and keep their licence file. See `example/assets/README.md`.
 - Explained sources keep their own rights. *The Cathedral and the Bazaar* is by Eric S.
   Raymond under the Open Publication License 2.0; QM is MIT-licensed code by the QM
-  contributors. Both examples are unofficial explanations.
+  contributors; selvage is Apache-2.0 code. All three examples are unofficial explanations.
 - Do not commit private scans, full OCR text, credentials or customer data.

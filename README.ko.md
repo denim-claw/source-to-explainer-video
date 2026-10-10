@@ -10,8 +10,8 @@
 
 ## 예제 영상 세 편
 
-설명 방식은 세 가지입니다. 방식마다 실제로 만든 예제가 하나씩 있고, 앞의 두 편은
-한국어판과 영어판을 따로 만들었습니다.
+설명 방식은 세 가지입니다. 방식마다 공개 원본으로 만든 예제가 하나씩 있고,
+세 편 모두 한국어판과 영어판을 따로 만들었습니다.
 
 ### 1. 책 한 절을 개념 영상으로
 
@@ -37,15 +37,20 @@ YC 소프트웨어 팀이 공개한 [QM](https://github.com/yc-software/qm)을 �
 - 자막: [한국어 SRT](example-architecture/preview/ko.srt) · [영어 SRT](example-architecture/preview/en.srt)
 - [만드는 방법과 검사 결과](example-architecture/README.ko.md)
 
-### 3. 코드 실행을 디버거처럼 따라가기
+### 3. 오픈소스 함수를 디버거처럼 따라가기
 
-직접 만든 가상 재고 함수를 실행하며 코드 줄과 변수 값의 변화를 보여 줍니다.
-가짜 인증·저장소·시계를 주입해 원래 함수를 그대로 돌리고, 기록한 값만 화면에 띄웁니다.
+[selvage](https://github.com/selvage-lab/selvage)에서 hunk의 실제 변경 줄 범위를 계산하는 함수를
+여섯 장면으로 따라갑니다. 고정한 커밋의 원본 함수를 저장소 테스트의 입력으로 그대로 실행하고,
+줄마다 기록한 값만 화면에 띄웁니다. 삭제 줄이 줄 번호를 올리지 않는 순간이 핵심입니다.
 
-![가상 재고 함수의 코드 줄 강조와 남은 재고 3](example-code-trace/preview/demo.gif)
+![삭제 줄을 처리하는 동안 current_line은 그대로이고 변경 범위가 3으로 채워지는 장면](example-debugger/preview/ko.gif)
 
-- 영상: [18초 예제 (임시 영어 음성)](example-code-trace/preview/demo.mp4)
-- [만드는 방법과 검사 결과](example-code-trace/README.ko.md)
+- 영상: [한국어 (2분 51초)](example-debugger/preview/ko.mp4) · [영어 (2분 45초)](example-debugger/preview/en.mp4)
+- 자막: [한국어 SRT](example-debugger/preview/ko.srt) · [영어 SRT](example-debugger/preview/en.srt)
+- [만드는 방법과 검사 결과](example-debugger/README.ko.md)
+
+가장 작은 출발점이 필요하면 [가상 재고 함수 예제](example-code-trace/README.ko.md)를 보세요.
+18초짜리이고, 코드 줄 강조 방식과 여러 파트로 나눈 플레이어를 함께 보여 줍니다.
 
 GIF에는 소리가 없습니다. MP4를 받아서 들어 보세요.
 
@@ -70,7 +75,7 @@ GIF에는 소리가 없습니다. MP4를 받아서 들어 보세요.
 - **수정과 배포를 허락한 글**: 퍼블릭 도메인, CC BY, Open Publication License 같은 라이선스.
   『성당과 시장』은 Open Publication License 2.0으로 복제와 수정을 허락합니다.
 - **허용 라이선스의 공개 저장소**: MIT, Apache-2.0 등. 커밋을 고정하고 라이선스를 밝힙니다.
-- **직접 쓴 자료**: 코드 추적 예제의 가상 재고 함수처럼 처음부터 새로 만든 예제.
+- **직접 쓴 자료**: 최소 코드 추적 예제의 가상 재고 함수처럼 처음부터 새로 만든 예제.
 
 시판 도서, 유료 강의, 남의 SNS 글은 짧게 인용하는 정도에 그치세요. 영상의 중심 원본으로
 쓰려면 저작권자의 허락을 받아야 합니다. 개인 학습용으로만 만들었다면 공개하지 않습니다.
@@ -81,7 +86,8 @@ GIF에는 소리가 없습니다. MP4를 받아서 들어 보세요.
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-PATH=".venv/bin:$PATH" bash example/assets/fetch-font.sh   # 글꼴(OFL) 받기
+PATH=".venv/bin:$PATH" bash example/assets/fetch-font.sh        # 본문 글꼴(OFL)
+PATH=".venv/bin:$PATH" bash example/assets/fetch-font.sh mono   # 코드용 고정폭 글꼴(OFL)
 
 # 음성 없이 파이프라인만 확인하는 기본 예제 (임시 음성은 말소리가 없는 배경음)
 cd example
@@ -96,10 +102,11 @@ bash make_demo_audio.sh
 ../.venv/bin/python package.py
 cd ..
 
-# 책 한 절 예제와 아키텍처 리뷰 예제: 한국어판과 영어판을 함께 만든다
+# 공개 원본 예제 세 편: 한국어판과 영어판을 함께 만든다
 export GEMINI_API_KEY=...                  # 아직 음성이 없는 장면에만 쓴다
 .venv/bin/python example-concept/pipeline.py
 .venv/bin/python example-architecture/pipeline.py --lang ko
+.venv/bin/python example-debugger/pipeline.py
 ```
 
 음성은 장면마다 Gemini TTS(`gemini-3.8-flash-lite-tts`)로 만듭니다. 대본·모델·목소리가
@@ -124,7 +131,8 @@ references/
 example/                     공통 파이프라인과 3장면 기본 예제
 example-concept/             책 한 절 → 개념 영상 (한국어·영어)
 example-architecture/        QM 저장소 → 아키텍처 리뷰 영상 (한국어·영어)
-example-code-trace/          가상 함수 → 디버거식 추적 영상
+example-debugger/            selvage 함수 → 디버거 추적 영상 (한국어·영어)
+example-code-trace/          가상 함수 → 코드 추적 최소 예제
 requirements.txt             버전을 고정한 Python 의존성
 ```
 
@@ -154,6 +162,6 @@ requirements.txt             버전을 고정한 Python 의존성
 - 이 저장소의 스킬 문서와 예제 코드는 MIT입니다. [LICENSE](LICENSE)를 보세요.
 - 글꼴은 따로 받고, 라이선스 파일을 함께 둡니다. [글꼴 안내](example/assets/README.md)를 보세요.
 - 예제가 설명하는 원본의 권리는 원저작자에게 있습니다. 『성당과 시장』은 Eric S. Raymond의
-  글로 Open Publication License 2.0을 따르고, QM은 QM 기여자들의 MIT 라이선스 코드입니다.
-  두 예제 모두 비공식 해설입니다.
+  글로 Open Publication License 2.0을 따릅니다. QM은 QM 기여자들의 MIT 라이선스 코드이고,
+  selvage는 Apache-2.0 라이선스 코드입니다. 세 예제 모두 비공식 해설입니다.
 - 비공개 스캔, 원문 전체를 OCR한 텍스트, 인증 정보, 고객 데이터는 커밋하지 않습니다.

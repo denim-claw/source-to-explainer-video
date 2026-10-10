@@ -45,10 +45,14 @@ def scene_records(plan, lang):
             return [walk(x) for x in v]
         return v
 
+    known = {'title', 'section', 'claim', 'narration', 'transition', 'cues', 'objects', 'visual',
+             'exceptions', 'source'}
     scenes = []
     for index, row in enumerate(plan, 1):
         s = walk(row)
-        scenes.append(dict(
+        # Mode-specific keys (code ranges, highlight definitions) pass through unchanged.
+        extra = {k: v for k, v in s.items() if k not in known}
+        scenes.append(dict(**extra, 
             id=index, title=s['title'], section=s['section'], claim=s['claim'],
             narration=s['narration'], transition_keyword=s['transition'],
             cue_definitions=[dict(keyword=k, text=t) for k, t in s['cues']],
@@ -58,7 +62,7 @@ def scene_records(plan, lang):
     return scenes
 
 
-def stage(root, lang, scenes, config, source_record):
+def stage(root, lang, scenes, config, source_record, extra_files=None, package_extra=()):
     build = root / 'build' / lang
     for sub in ('assets', 'audio', 'qa'):
         (build / sub).mkdir(parents=True, exist_ok=True)
@@ -71,11 +75,15 @@ def stage(root, lang, scenes, config, source_record):
     if not font.is_file():
         raise SystemExit('Fetch the shared OFL font first: bash example/assets/fetch-font.sh')
     shutil.copy2(font, build / 'assets/NotoSansCJKkr-Regular.otf')
+    # Mode adapters may replace shared scripts (e.g. a trace renderer as render.py).
+    for dst, src in (extra_files or {}).items():
+        (build / dst).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, build / dst)
     (build / 'scenes-draft.json').write_text(json.dumps(scenes, ensure_ascii=False, indent=2))
     (build / 'source-verification.json').write_text(json.dumps(source_record, ensure_ascii=False, indent=2))
     base = json.loads((SHARED / 'config.json').read_text())
     base.update(config, language=LANG_TAG[lang],
-                package_extra_files=['source-verification.json', 'asr_check.py'])
+                package_extra_files=['source-verification.json', 'asr_check.py', *package_extra])
     (build / 'config.json').write_text(json.dumps(base, ensure_ascii=False, indent=2))
     return build
 
@@ -156,10 +164,12 @@ def asr_summary(build):
                 per_scene=[r['similarity'] for r in report['scenes']], scope=report['scope'])
 
 
-def build_variant(root, lang, plan, config, source_record, review, voice, style, gif_scene):
+def build_variant(root, lang, plan, config, source_record, review, voice, style, gif_scene,
+                  extra_files=None, package_extra=(), after_prepare=None, before_package=None):
+    """after_prepare(build) may enrich scenes.json; before_package(build) adds mode checks."""
     root = pathlib.Path(root)
     scenes = scene_records(plan, lang)
-    build = stage(root, lang, scenes, config[lang], source_record)
+    build = stage(root, lang, scenes, config[lang], source_record, extra_files, package_extra)
     counts = speech(root, build, lang, scenes, voice, style[lang])
     print(lang, 'speech', counts, flush=True)
     fidelity(build, scenes, review)
@@ -171,8 +181,12 @@ def build_variant(root, lang, plan, config, source_record, review, voice, style,
         steps.append(('asr_check.py', '.', lang))
     steps.append(('package.py',))
     for step in steps:
+        if step == ('package.py',) and before_package:
+            before_package(build)
         out = run(build, py, *step)
         print(lang, ' '.join(step), '->', out.strip().splitlines()[-1] if out.strip() else 'ok', flush=True)
+        if step == ('prepare.py',) and after_prepare:
+            after_prepare(build)
     entry = export(root, build, lang, gif_scene)
     print(json.dumps(entry, ensure_ascii=False, indent=2))
     return entry

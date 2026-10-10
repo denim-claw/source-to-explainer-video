@@ -83,7 +83,7 @@ in `plan.py`, and `pipeline.py` verifies the source and runs the shared pipeline
 | Layout | 89 samples per language, no overlaps |
 | Audio | peak 0.829 (en) and 0.739 (ko), no clipped samples |
 | Package replay | the 60-file archive renders a 2-second MP4 from a clean folder and matches RGB hashes |
-| ASR comparison | per-scene similarity 0.965–1.0 (en), 0.825–0.931 (ko) |
+| ASR comparison | per-scene similarity 0.979–1.0 (en), 0.828–0.953 (ko) |
 
 The lower Korean scores (scenes 2, 5, 6) come from English identifiers such as `pending`,
 `harness` and `grant`, which the ASR model writes out in Hangul. Those scenes are flagged

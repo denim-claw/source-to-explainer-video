@@ -24,7 +24,7 @@ interactive page), `book-concept-video` (chapter → narrated concept video) and
 `video-deliverable-qa` (verify the encoded file, never the authoring surface).
 A public copy with runnable examples lives at
 https://github.com/denim-claw/source-to-explainer-video (same SKILL.md plus `example/`,
-`example-concept/`, `example-architecture/` and `example-code-trace/`).
+`example-concept/`, `example-architecture/`, `example-debugger/` and `example-code-trace/`).
 
 ## When to use
 
@@ -251,6 +251,8 @@ Full checklist: `references/video-qa.md`.
   six-scene concept video, Korean and English, Gemini speech.
 - `example-architecture/` — an architecture review of `yc-software/qm` pinned by commit
   and Git blob hashes, Korean and English, with the tests actually run named on screen.
+- `example-debugger/` — a recorded debugger trace of selvage's `HunkLineCalculator`,
+  Korean and English: original function, repository test input, values from trace events.
 - Older skills kept for their chapter-specific notes: `book-concept-video`,
   `video-deliverable-qa`, `karpathy-output-understanding`.
 
