@@ -1,7 +1,7 @@
 ---
 name: source-to-explainer-video
 description: Use when a source or code execution must become a narrated explainer video, including line-level or debugger-style walkthroughs.
-version: 1.0.0
+version: 1.1.0
 author: min (curator) — merged from book-concept-video + video-deliverable-qa + karpathy-output-understanding
 license: MIT
 platforms: [linux, macos]
@@ -22,8 +22,9 @@ request asks for it.
 Merges three earlier skills: `karpathy-output-understanding` (clear text → diagram →
 interactive page), `book-concept-video` (chapter → narrated concept video) and
 `video-deliverable-qa` (verify the encoded file, never the authoring surface).
-A public copy with a runnable example lives at
-https://github.com/denim-claw/source-to-explainer-video (same SKILL.md plus `example/`).
+A public copy with runnable examples lives at
+https://github.com/denim-claw/source-to-explainer-video (same SKILL.md plus `example/`,
+`example-concept/`, `example-architecture/`, `example-debugger/` and `example-code-trace/`).
 
 ## When to use
 
@@ -45,6 +46,8 @@ replacing a real renderer with a slide deck of static text.
 | Request | Emit |
 |---|---|
 | "코드 레벨로", "디버거처럼", "실행 순서/값을 따라가기" | narrated code-trace MP4; read `references/code-trace.md`, then reuse §4–§7 |
+| "아키텍처 리뷰", "구조 설명", "이 PR/저장소 리뷰" | narrated behavioural review MP4; read `references/from-code-review.md` |
+| "영어/한국어 둘 다", "자막 두 벌" | one master per language from the same plan (§4, `example/variant.py`) |
 | "설명 영상", "3Blue1Brown 스타일", no format named | narrated MP4 (§4–§7) |
 | "다이어그램", "구조도" | diagram artifact (§3b) |
 | "웹", "HTML", "탭" | mobile-first 3-tab page (§3c) |
@@ -59,6 +62,7 @@ fidelity report. Never publish or upload without a separate explicit instruction
 |---|---|---|
 | Understand a book, paper or spec | shared workflow below | narrated concept animation |
 | Understand what a code change does | `references/from-code-review.md` | behavioural delta; no line-by-line diff narration |
+| Understand how a codebase is built | `references/from-code-review.md` §6 | architecture review pinned to one commit; behaviour, not line-by-line |
 | Follow code execution and changing values | `references/code-trace.md` | source-line highlights or a recorded debugger harness |
 
 These are styles inside this skill, not nested skills. Diagram/HTML remain output formats.
@@ -113,6 +117,9 @@ Worked contrast, in Korean:
 
 Clear wording and factual correctness are **different checks**.
 
+For Korean narration, captions and documents, also apply `references/writing-ko.md`
+(short sentences, matched subject and predicate, no translationese, read it aloud).
+
 ### 3b. Diagram artifact
 
 Typed JSON diagram (workflow/architecture/sequence/dataflow/lifecycle), ≤12 primary
@@ -148,7 +155,13 @@ page.
 - Anchor transitions and highlight cues to a keyword present in the narration; assert the
   keyword matches or fail loudly.
 
-Details and the exact request shape: `references/tts.md`.
+- Several languages: keep one plan whose spoken and displayed strings carry every
+  language, then build one master, caption file and QA set per language. Never mix
+  measured timings across languages.
+
+Details and the exact request shape: `references/tts.md`. A working Gemini client with
+key-less reuse is `example/gemini_tts.py`; `example/variant.py` drives one language
+variant through the whole pipeline.
 
 ## 5. Render honestly
 
@@ -234,6 +247,12 @@ Full checklist: `references/video-qa.md`.
   `pm-book-ch8-video` — chapter productions with fidelity, preflight and package replay.
 - `/home/claw/source-to-explainer-video/example/` — minimal runnable example
   (proves the pipeline with placeholder audio and no paid TTS).
+- `example-concept/` — one book section (The Cathedral and the Bazaar, OPL 2.0) as a
+  six-scene concept video, Korean and English, Gemini speech.
+- `example-architecture/` — an architecture review of `yc-software/qm` pinned by commit
+  and Git blob hashes, Korean and English, with the tests actually run named on screen.
+- `example-debugger/` — a recorded debugger trace of selvage's `HunkLineCalculator`,
+  Korean and English: original function, repository test input, values from trace events.
 - Older skills kept for their chapter-specific notes: `book-concept-video`,
   `video-deliverable-qa`, `karpathy-output-understanding`.
 

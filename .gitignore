@@ -39,3 +39,11 @@ __pycache__/
 
 # code-trace demo: derived assets stay local
 example-code-trace/build/
+
+# concept and architecture demos: builds and paid speech stay local
+example-concept/build/
+example-concept/audio-cache/
+example-architecture/build/
+example-architecture/audio-cache/
+example-debugger/build/
+example-debugger/audio-cache/
