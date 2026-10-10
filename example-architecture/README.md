@@ -86,14 +86,14 @@ in `plan.py`, and `pipeline.py` verifies the source and runs the shared pipeline
 | ASR comparison | per-scene similarity 0.979–1.0 (en), 0.828–0.953 (ko) |
 
 The lower Korean scores (scenes 2, 5, 6) come from English identifiers such as `pending`,
-`harness` and `grant`, which the ASR model writes out in Hangul. Those scenes are flagged
-for a human listen.
+`harness` and `grant`, which the ASR model writes out in Hangul. The maintainer listened
+to the Korean version and these names sounded fine.
 
 Speech: Gemini `gemini-3.8-flash-lite-tts`, voice `Kore`.
 
 ## Not checked
 
-- No one listened to the full videos end to end.
+- The maintainer listened to the Korean version and found nothing to fix. No one has listened to the English version.
 - Caption timing is an estimate, not forced alignment.
 - No independent review by the QM maintainers or anyone else.
 - No cloud deployment, production Postgres or "millions of agents" scale was tested.

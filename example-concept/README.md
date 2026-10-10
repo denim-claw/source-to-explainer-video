@@ -77,7 +77,8 @@ Speech: Gemini `gemini-3.8-flash-lite-tts`, voice `Charon`.
 
 ## Not checked
 
-- No one listened to the full videos end to end. ASR similarity is not a pronunciation grade.
+- The maintainer listened to the Korean version and found nothing to fix. No one has listened to the English version.
+- ASR similarity is not a pronunciation grade.
 - Caption timing is proportional to character count inside each measured scene, not forced alignment.
 - The fidelity review is the author's second pass, not an independent review.
 - Tick counts, the eight debuggers and the depth of a bug are metaphors, not measurements.

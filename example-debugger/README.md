@@ -86,7 +86,8 @@ export WHISPER_MODEL=/path/to/ggml-small.bin  # optional ASR comparison
 | ASR comparison | whisper.cpp small, per scene; similarity 0.970–1.0 (en), 0.754–0.891 (ko) |
 
 The Korean scores are lower because the ASR model writes identifiers such as `current_line` and
-`DELETED` in Hangul. No sentence was missing, but those scenes remain flagged for a human listen.
+`DELETED` in Hangul. No sentence was missing, and the maintainer heard
+the names correctly when listening to the Korean version.
 
 Speech: Gemini `gemini-3.8-flash-lite-tts`, voice `Puck`.
 
@@ -94,5 +95,6 @@ Speech: Gemini `gemini-3.8-flash-lite-tts`, voice `Puck`.
 
 - Only one test scenario was executed. Unmatched prefixes (`\ No newline at end of file`),
   hunks without changes and deleted files starting at line 0 were read, not run.
-- No one listened to the full videos end to end. Caption timing is an estimate.
+- The maintainer listened to the Korean version and found nothing to fix. No one has listened to the English version.
+- Caption timing is an estimate.
 - No independent review by the selvage maintainers or anyone else.
