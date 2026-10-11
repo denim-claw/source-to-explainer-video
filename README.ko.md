@@ -7,6 +7,19 @@ Claude Code, Codex처럼 스킬을 읽는 코딩 에이전트에서 씁니다.
 
 결과물은 MP4 영상과 SRT 자막, 원본 대조 기록, 그리고 같은 영상을 다시 만들 수 있는 소스 패키지입니다.
 
+## 의도
+
+AI 덕분에 코드와 글은 빨리 만들어집니다. 하지만 그것을 검토하고 이해하는 일은 여전히 사람의 몫이고,
+오히려 늘었습니다([Lee 외 2025](https://doi.org/10.1145/3706598.3713778), [METR 2025](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)). 집중력과 작업기억은 유한합니다([Cowan 2001](https://doi.org/10.1017/s0140525x01003922)).
+
+이 스킬은 본격적으로 읽기 전에 귀와 눈으로 큰 그림을 먼저 잡는 도구입니다([Mayer 2014](https://www.cambridge.org/core/books/cambridge-handbook-of-multimedia-learning/principles-for-managing-essential-processing-in-multimedia-learning-segmenting-pretraining-and-modality-principles/DD24C2F48B9B1277CE59F78276110258)).
+코드 리뷰와 PR 리뷰 전에, 책을 읽기 전이나 읽고 나서 갈무리할 때 씁니다. 영상을 보고 나면
+내가 무엇을 모르는지, 무엇을 직접 확인해야 하는지가 먼저 보입니다.
+
+영상이 이해를 대신하지는 않습니다. 영상은 기존 학습을 대체할 때보다 보조할 때 효과가 큽니다([Noetel 외 2021](https://doi.org/10.3102/0034654321990713)).
+매끄러운 설명은 배웠다는 느낌만 키우기도 합니다([Carpenter 외 2013](https://doi.org/10.3758/s13423-013-0442-z)). 그래서 확인하지 못한 것은
+영상과 검사 기록에 따로 남깁니다.
+
 ## 예제
 
 세 편 모두 공개 원본으로 만들었고, 한국어판과 영어판이 따로 있습니다. GIF에는 소리가 없으니 MP4로 들어 보세요.

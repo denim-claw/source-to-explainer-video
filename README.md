@@ -7,6 +7,19 @@ It works with coding agents that load skills, such as Claude Code and Codex.
 
 You get an MP4 with SRT captions, a source-fidelity record and a source package that rebuilds the same video.
 
+## Why
+
+AI makes code and text fast to produce. Reviewing and understanding them is still human work, and there
+is more of it ([Lee et al. 2025](https://doi.org/10.1145/3706598.3713778), [METR 2025](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)). Attention and working memory are limited ([Cowan 2001](https://doi.org/10.1017/s0140525x01003922)).
+
+This skill gives you the big picture by ear and eye before you read closely ([Mayer 2014](https://www.cambridge.org/core/books/cambridge-handbook-of-multimedia-learning/principles-for-managing-essential-processing-in-multimedia-learning-segmenting-pretraining-and-modality-principles/DD24C2F48B9B1277CE59F78276110258)). Use it
+before a code or PR review, and before reading a book or after it to consolidate. After the video you can see
+what you do not know yet and what you must check yourself.
+
+The video does not replace understanding. Video helps more when it supplements study than when it replaces it
+([Noetel et al. 2021](https://doi.org/10.3102/0034654321990713)). A smooth explanation can raise the feeling of learning without the learning
+([Carpenter et al. 2013](https://doi.org/10.3758/s13423-013-0442-z)). So what was not checked is recorded separately, in the video and in the check records.
+
 ## Examples
 
 All three are built from public sources, in Korean and in English. The GIFs are silent; play the MP4s for sound.
