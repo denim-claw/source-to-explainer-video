@@ -1,0 +1,151 @@
+1
+00:00:00,000 --> 00:00:07,414
+When selvage uses smart context, it sends the model only the code blocks that contain changed lines.
+
+2
+00:00:07,414 --> 00:00:12,381
+For that it first needs the range of lines a hunk actually changed.
+
+3
+00:00:12,381 --> 00:00:16,755
+Let us follow the function that computes it, in a debugger.
+
+4
+00:00:16,755 --> 00:00:23,204
+The input is one hunk from the repository test, and the modified file starts at line 1.
+
+5
+00:00:23,204 --> 00:00:26,096
+First, the content is split into lines.
+
+6
+00:00:26,096 --> 00:00:27,282
+There are seven.
+
+7
+00:00:27,282 --> 00:00:31,285
+Next, a tracker is created with current_line set to 1.
+
+8
+00:00:31,285 --> 00:00:33,880
+Now the lines are taken one by one.
+
+9
+00:00:34,480 --> 00:00:38,904
+The first line starts with a space, so it is a context line.
+
+10
+00:00:38,904 --> 00:00:43,033
+The branch passes ADDED and DELETED and reaches CONTEXT.
+
+11
+00:00:43,033 --> 00:00:49,374
+A context line also exists in the modified file, so only current_line moves up by one.
+
+12
+00:00:49,374 --> 00:00:52,913
+The second context line is handled the same way.
+
+13
+00:00:52,913 --> 00:00:56,600
+So when the third line arrives, current_line is 3.
+
+14
+00:00:57,200 --> 00:01:01,011
+The third line, 'old line', starts with a minus sign.
+
+15
+00:01:01,011 --> 00:01:04,104
+An empty line would return None right away.
+
+16
+00:01:04,104 --> 00:01:07,627
+Otherwise the first character is taken as prefix.
+
+17
+00:01:07,627 --> 00:01:11,511
+Then the loop compares it with each LineType in order.
+
+18
+00:01:11,511 --> 00:01:13,884
+ADDED's plus sign does not match.
+
+19
+00:01:13,884 --> 00:01:16,976
+The second one, DELETED's minus sign, does.
+
+20
+00:01:16,976 --> 00:01:19,278
+On a match the type is returned.
+
+21
+00:01:19,278 --> 00:01:23,880
+A line that matches no sign becomes None, and the loop skips it.
+
+22
+00:01:24,480 --> 00:01:27,298
+DELETED goes to _process_deleted_line.
+
+23
+00:01:27,298 --> 00:01:33,378
+No change has been recorded yet, so first_change_line becomes the current line, 3.
+
+24
+00:01:33,378 --> 00:01:37,530
+last_change_line is also empty, so it becomes 3 as well.
+
+25
+00:01:37,530 --> 00:01:44,055
+And current_line stays at 3, because a deleted line does not exist in the modified file.
+
+26
+00:01:44,055 --> 00:01:48,800
+The deletion is marked at line 3, where the next line will land.
+
+27
+00:01:49,400 --> 00:01:54,376
+The next two lines start with a plus sign; they are added lines.
+
+28
+00:01:54,376 --> 00:01:57,796
+first_change_line is already 3, so it stays.
+
+29
+00:01:57,796 --> 00:02:01,450
+last_change_line is set to the current line, 3.
+
+30
+00:02:01,450 --> 00:02:07,670
+An added line really exists in the modified file, so current_line moves up to 4.
+
+31
+00:02:07,670 --> 00:02:14,200
+On the second added line, last_change_line becomes 4 and current_line moves up to 5.
+
+32
+00:02:14,800 --> 00:02:19,521
+The two remaining context lines only move current_line up to 7.
+
+33
+00:02:19,521 --> 00:02:22,743
+When the loop ends, the range is finalized.
+
+34
+00:02:22,743 --> 00:02:27,165
+The recorded first change, 3, and last change, 4, are read.
+
+35
+00:02:27,165 --> 00:02:33,609
+Without a record it would fall back to the start line, and anything below 1 becomes 1.
+
+36
+00:02:33,609 --> 00:02:35,632
+The result is lines 3 to 4.
+
+37
+00:02:35,632 --> 00:02:39,079
+That matches what the repository test expects.
+
+38
+00:02:39,079 --> 00:02:44,400
+selvage then picks the code blocks around this range as review context.

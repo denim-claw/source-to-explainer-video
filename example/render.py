@@ -7,7 +7,9 @@
 import bisect
 import hashlib
 import io
+import itertools
 import json
+import math
 import pathlib
 import subprocess
 import sys
@@ -17,7 +19,7 @@ from functools import lru_cache
 from PIL import Image, ImageDraw
 
 from drawlib import (BG, BLUE, EDGE, FG, GRID, MUTED, PURPLE, RED, TEAL, YELLOW,
-                     arrow, box, clamp, curve_flow, dot, ease, flow, line, mix,
+                     arrow, box, clamp, curve_flow, dot, ease, flow, line, mix, mix_color,
                      morph_points, node, text, tile)
 
 R = pathlib.Path(__file__).parent
@@ -112,7 +114,7 @@ def renderAt(t, audit=False):
         text(im, pt, txt, size, col, center)
         rects.append(dict(kind='text', text=str(txt), box=[left, top, left + a.width, top + a.height]))
 
-    order = sorted(objects, key=lambda o: 0 if o['type'] in ('flow', 'line', 'arrow', 'curve', 'wlink', 'morph') else 1)
+    order = sorted(objects, key=lambda o: 0 if o['type'] in ('flow', 'line', 'arrow', 'curve', 'wlink', 'morph', 'mesh', 'timeline') else 1)
     for o in order:
         show = o.get('show', 'always')
         if (show == 'before' and q >= .5) or (show == 'after' and q < .5):
@@ -181,6 +183,62 @@ def renderAt(t, audit=False):
             h = value(o.get('h', [150, 25]), q)
             d.rounded_rectangle((x - 9, y - h / 2, x + 9, y + h / 2), radius=4, fill=col)
 
+        elif kind == 'timeline':
+            # Release-style ticks on one axis. Shared ticks slide to their new spacing;
+            # added ticks appear one by one and removed ticks leave one by one.
+            (x0, x1), y = o['x'], o['y']
+            before, after = o['count']
+            line(d, (x0, y), (x1, y), EDGE, 3)
+            for k in range(max(before, after)):
+                pb = mix(x0, x1, (k + .5) / before) if k < before else None
+                pa = mix(x0, x1, (k + .5) / after) if k < after else None
+                if pb is not None and pa is not None:
+                    x = mix(pb, pa, q)
+                elif pa is not None:
+                    if k - before >= (after - before) * q:
+                        continue
+                    x = pa
+                else:
+                    if k >= before - (before - after) * q:
+                        continue
+                    x = pb
+                d.rounded_rectangle((x - 4, y - 22, x + 4, y + 22), radius=3, fill=col)
+
+        elif kind == 'mesh':
+            # n peers on a ring. Before: every pair talks. After: each peer talks to one hub.
+            cx, cy = o['center']
+            rad, n = o.get('radius', 130), o.get('n', 8)
+            pts = [(cx + rad * math.cos(math.tau * k / n - math.pi / 2),
+                    cy + rad * math.sin(math.tau * k / n - math.pi / 2)) for k in range(n)]
+            pair = mix_color(RED, BG, ease(q * 1.6))
+            spoke = mix_color(BG, TEAL, ease(q * 1.6 - .6))
+            for a, b in itertools.combinations(pts, 2):
+                line(d, a, b, pair, 2)
+            for a in pts:
+                line(d, a, (cx, cy), spoke, 3)
+            for a in pts:
+                dot(d, a, 9, YELLOW)
+            hub = mix_color(BG, TEAL, ease(q * 1.6 - .6))
+            d.ellipse((cx - 16, cy - 16, cx + 16, cy + 16), fill=BG, outline=hub, width=4)
+
+        elif kind == 'chips':
+            # A short list whose members change at the transition (queue, holders, tape rows).
+            x, y = pos(o['pos'])
+            items = o['items'][1] if q >= .5 and isinstance(o['items'][0], list) else (
+                o['items'][0] if isinstance(o['items'][0], list) else o['items'])
+            size = o.get('size', 21)
+            widths = [tile(str(it), size, col).width + 26 for it in items]
+            gap = 12
+            left = x - (sum(widths) + gap * (len(widths) - 1)) / 2 if o.get('center', True) else x
+            for it, wdt in zip(items, widths):
+                c = o.get('colors', {}).get(str(it), col)
+                d.rounded_rectangle((left, y - 20, left + wdt, y + 20), radius=20, fill=BG, outline=c, width=2)
+                a = tile(str(it), size, c)
+                text(im, (left + wdt / 2, y - a.height / 2 - 1), it, size, c, True)
+                rects.append(dict(kind='text', text=str(it),
+                                  box=[left + 13, y - 20, left + wdt - 13, y + 20]))
+                left += wdt + gap
+
         elif kind == 'checks':
             cols = o.get('cols', 3)
             y0, dy = o.get('y0', 300), o.get('dy', 120)
@@ -189,7 +247,7 @@ def renderAt(t, audit=False):
                 x = 80 + cw * (k % cols) + cw / 2
                 y = y0 + dy * (k // cols)
                 active = t >= o['times'][k]
-                color = TEAL if active else MUTED
+                color = o.get('colors', [TEAL] * len(o['labels']))[k] if active else MUTED
                 box(im, d, (x - cw * .44, y - 34, x + cw * .44, y + 34), lab, color, 22)
                 dot(d, (x - cw * .37, y), 4, color)
                 a = tile(lab, 22, color)
@@ -267,7 +325,8 @@ def main():
            '-c:a', 'aac', '-b:a', CFG['audio_bitrate'], '-ar', str(CFG['audio_sample_rate']), '-ac', '1',
            '-af', 'loudnorm=I=-16:TP=-3:LRA=11,alimiter=limit=0.75:level=false',
            '-c:s', 'mov_text',
-           '-metadata:s:a:0', 'language=kor', '-metadata:s:s:0', 'language=kor',
+           '-metadata:s:a:0', f'language={CFG.get("language", "kor")}',
+           '-metadata:s:s:0', f'language={CFG.get("language", "kor")}',
            '-metadata', f'title={CFG["header"]}',
            '-t', str(DATA['duration']), '-movflags', '+faststart', str(OUT)]
     (R / 'render-command.json').write_text(json.dumps(cmd, ensure_ascii=False, indent=2))

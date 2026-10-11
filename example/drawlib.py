@@ -78,6 +78,14 @@ def mix(a, b, q):
     return a + (b - a) * q
 
 
+def mix_color(a, b, q):
+    """Blend two #rrggbb colours; q is clamped so a cross-fade of lines stays deterministic."""
+    q = clamp(q)
+    pa = [int(a[i:i + 2], 16) for i in (1, 3, 5)]
+    pb = [int(b[i:i + 2], 16) for i in (1, 3, 5)]
+    return '#' + ''.join(f'{round(mix(x, y, q)):02x}' for x, y in zip(pa, pb))
+
+
 def line(d, a, b, col=EDGE, width=3):
     d.line([a, b], fill=col, width=width)
 

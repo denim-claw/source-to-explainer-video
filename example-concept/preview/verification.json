@@ -1,0 +1,90 @@
+{
+  "ko": {
+    "language": "ko",
+    "duration_seconds": 184.133333,
+    "frames": 5524,
+    "video": {
+      "path": "ko.mp4",
+      "bytes": 4421800,
+      "sha256": "4480a503ebc8407cbec7218ab81aea1eed897a1c7f73d70c6e67e29a0e25622c"
+    },
+    "captions": {
+      "path": "ko.srt",
+      "sha256": "ebbbbb52d7b2ab2490080969164fdc9bdf990956f8a1bd2111e4e6da67beb4ff",
+      "timing": "proportional estimate inside measured scenes; not forced alignment"
+    },
+    "screenshot": {
+      "path": "ko.png",
+      "at_seconds": 132.32659340659342
+    },
+    "gif": {
+      "path": "ko.gif",
+      "bytes": 242454,
+      "start_seconds": 127.32659340659342,
+      "seconds": 9.0,
+      "fps": 10,
+      "width": 800,
+      "audio": false
+    },
+    "full_decode_clean": true,
+    "asr": {
+      "tool": "whisper.cpp whisper-cli",
+      "model": "ggml-small.bin",
+      "min_similarity": 0.868,
+      "per_scene": [
+        0.97,
+        0.985,
+        0.993,
+        0.868,
+        0.956,
+        0.967
+      ],
+      "scope": "automatic transcript similarity per scene; not a human listen and not a pronunciation grade"
+    },
+    "tts": "all scenes synthesised"
+  },
+  "en": {
+    "language": "en",
+    "duration_seconds": 186.7,
+    "frames": 5601,
+    "video": {
+      "path": "en.mp4",
+      "bytes": 4838577,
+      "sha256": "46272d41869ea1009f88b1df6b8b08dd413af067922f0cb93d47685b25baffbc"
+    },
+    "captions": {
+      "path": "en.srt",
+      "sha256": "0c99cf3132f1785b4225b5f63dbc25fbd5c3c07adda66ab4f9877481a322c84b",
+      "timing": "proportional estimate inside measured scenes; not forced alignment"
+    },
+    "screenshot": {
+      "path": "en.png",
+      "at_seconds": 133.55822784810127
+    },
+    "gif": {
+      "path": "en.gif",
+      "bytes": 240479,
+      "start_seconds": 128.55822784810127,
+      "seconds": 9.0,
+      "fps": 10,
+      "width": 800,
+      "audio": false
+    },
+    "full_decode_clean": true,
+    "asr": {
+      "tool": "whisper.cpp whisper-cli",
+      "model": "ggml-small.bin",
+      "min_similarity": 0.998,
+      "per_scene": [
+        0.999,
+        1.0,
+        1.0,
+        1.0,
+        0.998,
+        0.998
+      ],
+      "scope": "automatic transcript similarity per scene; not a human listen and not a pronunciation grade"
+    },
+    "tts": "all scenes synthesised"
+  }
+}

@@ -87,6 +87,15 @@ Provide per-part duration/bytes/SHA256 and one mobile-friendly page with inline 
 part selection and direct links. Prefer relative URLs for a local package. Hosting/upload
 requires explicit authorization. Prototype assets are not automatically public artifacts.
 
+## Real open-source example
+
+`example-debugger/` traces a real function from `selvage-lab/selvage` at a pinned commit:
+blob-checked source, a scenario taken verbatim from the repository's test (checked by
+parsing the test file), a tracer over the original module imported from fetched files,
+highlights that name trace events by index, and a full-width code panel with a watch bar
+for long real-world lines. `trace_check.py` and `test_trace.py` show the refusals that
+matter: invented values, highlights outside their range or panel time, and edited source.
+
 ## Runnable public fixture
 
 `example-code-trace/` contains `codedraw.py`, `panels.py`, a dependency-injected

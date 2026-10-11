@@ -1,0 +1,179 @@
+1
+00:00:00,000 --> 00:00:07,271
+This video reviews the architecture of QM, the agent harness published by YC Software.
+
+2
+00:00:07,271 --> 00:00:13,782
+QM is an agent runtime that people in a company share from Slack and the web.
+
+3
+00:00:13,782 --> 00:00:16,995
+Requests arrive from Slack or the web.
+
+4
+00:00:16,995 --> 00:00:19,954
+Every turn passes through one core.
+
+5
+00:00:19,954 --> 00:00:23,505
+The turn becomes one run in the run queue.
+
+6
+00:00:23,505 --> 00:00:30,777
+A worker takes the run and drives the orchestrator, which calls a harness and a model.
+
+7
+00:00:30,777 --> 00:00:34,920
+Conversations and run state all live in Postgres.
+
+8
+00:00:35,520 --> 00:00:39,007
+One request becomes one run in the runs table.
+
+9
+00:00:39,007 --> 00:00:40,599
+It starts as pending.
+
+10
+00:00:40,599 --> 00:00:45,677
+A worker claims the oldest pending run with FOR UPDATE SKIP LOCKED.
+
+11
+00:00:45,677 --> 00:00:52,348
+It skips a run if the same session already has a running run, or an earlier one waiting.
+
+12
+00:00:52,348 --> 00:00:57,881
+The claimed run becomes running and receives a lease with an expiry time.
+
+13
+00:00:57,881 --> 00:01:02,960
+The worker heartbeats every third of the lease period to extend it.
+
+14
+00:01:03,560 --> 00:01:08,567
+If a worker dies, its heartbeat stops and the lease eventually expires.
+
+15
+00:01:08,567 --> 00:01:13,293
+The reaper periodically looks for running runs with expired leases.
+
+16
+00:01:13,293 --> 00:01:17,031
+It first fences the run by replacing its lease token.
+
+17
+00:01:17,031 --> 00:01:22,884
+A stale worker that wakes up late can no longer commit a result with its old token.
+
+18
+00:01:22,884 --> 00:01:26,411
+Completing a run also requires the matching token.
+
+19
+00:01:26,411 --> 00:01:33,040
+Then the reaper returns the run to pending, or marks it failed once the retry budget is spent.
+
+20
+00:01:33,640 --> 00:01:36,950
+Conversations accumulate on the session tape.
+
+21
+00:01:36,950 --> 00:01:42,172
+The tape is an append-only Postgres table for each conversation stream.
+
+22
+00:01:42,172 --> 00:01:44,231
+Records come in three kinds.
+
+23
+00:01:44,231 --> 00:01:53,793
+Messages the model read or produced, explicit context edits such as compaction or redaction, and annotations the model never sees.
+
+24
+00:01:53,793 --> 00:01:55,485
+There is one invariant.
+
+25
+00:01:55,485 --> 00:02:04,164
+The model reads only what the tape contains, and the tape contains everything the model read, in the order it read it.
+
+26
+00:02:04,164 --> 00:02:06,370
+The exceptions are stated too.
+
+27
+00:02:06,370 --> 00:02:14,240
+The system prompt and tool schemas are resolved fresh each turn, and some records are filtered by audience.
+
+28
+00:02:14,840 --> 00:02:17,547
+Agents have a single tool catalog.
+
+29
+00:02:17,547 --> 00:02:23,916
+The harness that actually runs a turn can be Pi, Codex, Claude Code or OpenCode.
+
+30
+00:02:23,916 --> 00:02:29,967
+A selection of harness, model, effort level and speed is called the runtime.
+
+31
+00:02:29,967 --> 00:02:35,619
+Each message row on the tape is stamped with the harness that wrote it.
+
+32
+00:02:35,619 --> 00:02:43,899
+When the harness changes, QM records a harness_change event and converts the earlier history explicitly.
+
+33
+00:02:43,899 --> 00:02:47,800
+The event marks that the conversion may be lossy.
+
+34
+00:02:48,400 --> 00:02:52,283
+Each person and each channel has its own scope.
+
+35
+00:02:52,283 --> 00:02:57,652
+Each scope has its own memory, files, crons and sandbox computer.
+
+36
+00:02:57,652 --> 00:03:02,857
+The agent's execute tool runs commands in that scope's sandbox.
+
+37
+00:03:02,857 --> 00:03:07,979
+Crossing this isolation requires an explicit, auditable grant.
+
+38
+00:03:07,979 --> 00:03:10,209
+And no sandbox is precious.
+
+39
+00:03:10,209 --> 00:03:16,240
+Durable state is written to Postgres or object storage wherever possible.
+
+40
+00:03:16,840 --> 00:03:21,795
+As a reviewer, I separate what was checked from what remains.
+
+41
+00:03:21,795 --> 00:03:29,757
+I ran eight test files on runs, the reaper, the session tape, scopes and sandboxes at this commit.
+
+42
+00:03:29,757 --> 00:03:31,706
+166 of 170 tests passed.
+
+43
+00:03:31,706 --> 00:03:40,398
+The 4 failures came from a local sandbox install that fails on this Mac, so that behavior stays unverified.
+
+44
+00:03:40,398 --> 00:03:47,629
+The tests used in-memory stores, and the Postgres SQL paths were only read, not executed.
+
+45
+00:03:47,629 --> 00:03:53,640
+Scale to millions of agents is a design goal, not something measured here.

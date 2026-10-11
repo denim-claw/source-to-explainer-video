@@ -72,3 +72,10 @@ python package.py
   before any API key is read; a missing key must not block reuse or re-render.
 - Store per-scene usage from the API response and keep paid estimates separate from
   invoices.
+
+## Language variants
+
+One plan can carry every spoken and displayed string as `{'ko': ..., 'en': ...}`.
+`example/variant.py` builds each language in its own `build/<lang>/` with its own audio,
+measured timing, captions, QA and package. Never reuse one language's timings for another.
+`example-concept/pipeline.py` and `example-architecture/pipeline.py` are complete callers.
