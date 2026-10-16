@@ -1,0 +1,2 @@
+# Optional speech provider; ffmpeg must also be on PATH.
+edge-tts==7.3.1

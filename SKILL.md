@@ -141,8 +141,15 @@ page.
 
 ## 4. Narration and measured timing
 
-- Synthesise **per scene**; keep the original WAV, model, voice, interaction id and usage.
-  Never re-wrap a headered WAV, never silently substitute another TTS.
+- **Default to Edge TTS**: no API key or separate API charge, but the voice may sound less
+  natural; it is an online service, not an availability or unlimited-use guarantee. Before
+  synthesis, offer Edge vs. more natural Gemini (API key required) when asking is appropriate.
+  If there is no answer, proceed with Edge. Explicit natural-voice preference selects Gemini;
+  confirm its key is configured without asking the user to paste a key in chat. Never silently switch.
+- Synthesise **per scene**. Gemini: keep the original WAV, model, voice, interaction id
+  and usage. Edge: preserve original MP3 and decode a pipeline WAV; unavailable id/usage
+  stay null. Use `example/edge_tts_adapter.py`; commands in `references/tts.md`.
+  Never re-wrap a headered WAV.
 - Validate completed audio (script text, model, voice, metadata) **before** loading any
   API key; load the key lazily only when audio is genuinely missing. A missing credential
   must not block reuse, re-render or QA.

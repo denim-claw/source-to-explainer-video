@@ -105,6 +105,15 @@ Nothing is uploaded or published unless you ask for it separately.
 | Code change, repository structure | behaviour drawn as paths, not read line by line | [from-code-review.md](references/from-code-review.md) |
 | A function's order of execution and values | source-line highlights, or a recorded debugger trace | [code-trace.md](references/code-trace.md) |
 
+## Speech provider
+
+Edge TTS is the default: no API key or separate API charge, but the voice may sound less
+natural and relies on an online service. The builder announces the trade-off and proceeds
+with Edge unless a preference for natural narration is explicit. For Gemini, set
+`TTS_PROVIDER=gemini` and configure `GEMINI_API_KEY`; providers are never switched silently.
+Install `example/requirements-edge.txt`. See [the TTS guide](references/tts.md) for commands,
+per-scene audio provenance and service limitations.
+
 ## Source licensing
 
 Making an explainer does not give you the right to redistribute its source. For videos you publish, use:
@@ -141,7 +150,17 @@ export GEMINI_API_KEY=...
 .venv/bin/python example-debugger/pipeline.py
 ```
 
-When `audio-cache/` already holds speech for the same script, model and voice, it is reused and the API key is not read.
+**Default speech: Edge TTS.** It needs no API key or separate API charge, but can sound less
+natural and relies on an online service. The builder announces this and proceeds with Edge
+unless a natural-voice preference is explicit. For more natural Gemini TTS, set
+`TTS_PROVIDER=gemini` and configure `GEMINI_API_KEY`; the builder never switches providers
+silently. Install `example/requirements-edge.txt`; see [the TTS guide](references/tts.md)
+for standalone commands, preserved MP3/WAV provenance and service limitations.
+
+Speech is synthesised per scene. Matching audio is reused; Gemini does not read its API key
+until genuinely new synthesis is needed. When `audio-cache/` already holds speech for the
+same script, model and voice, it is reused. Set `WHISPER_MODEL` to a whisper.cpp model to
+transcribe each scene and compare it with the script.
 
 ## What's inside
 

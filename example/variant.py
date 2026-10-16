@@ -89,13 +89,29 @@ def stage(root, lang, scenes, config, source_record, extra_files=None, package_e
 
 
 def speech(root, build, lang, scenes, voice, style):
-    """Audio lives in <example>/audio-cache/<lang>/ so a clean build never pays twice."""
-    cache = root / 'audio-cache' / lang
+    """Edge is default; set TTS_PROVIDER=gemini for Gemini. Speech caches are provider-separated."""
+    provider = os.environ.get('TTS_PROVIDER', 'edge')
+    if provider not in ('gemini', 'edge'):
+        raise ValueError('TTS_PROVIDER must be gemini or edge')
+    if 'TTS_PROVIDER' not in os.environ:
+        print('TTS_PROVIDER not set; defaulting to Edge TTS (no API key; voice may sound less natural). '
+              'Set TTS_PROVIDER=gemini for natural Gemini narration (requires GEMINI_API_KEY).', flush=True)
+    cache = root / 'audio-cache' / lang if provider == 'gemini' else root / 'audio-cache' / 'edge' / lang
     counts = {'reused': 0, 'synthesized': 0}
     for s in scenes:
         wav = cache / f'scene-{s["id"]:02d}.wav'
-        counts[gemini_tts.synthesize(wav, s['narration'], voice, style)] += 1
-        for f in (wav, wav.with_name(wav.stem + '-metadata.json')):
+        if provider == 'edge':
+            import edge_tts_adapter
+            edge_voice = os.environ.get('TTS_VOICE') or {'ko': 'ko-KR-SunHiNeural', 'en': 'en-US-AriaNeural'}[lang]
+            # Edge has no free-form speaking style; do not send style as narration.
+            result = edge_tts_adapter.synthesize(wav, s['narration'], edge_voice)
+        else:
+            result = gemini_tts.synthesize(wav, s['narration'], voice, style)
+        counts[result] += 1
+        files = [wav, wav.with_name(wav.stem + '-metadata.json')]
+        if provider == 'edge':
+            files.append(wav.with_suffix('.mp3'))
+        for f in files:
             shutil.copy2(f, build / 'audio' / f.name)
     return counts
 

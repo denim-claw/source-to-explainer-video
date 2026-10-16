@@ -106,6 +106,10 @@ selvage의 calculate_actual_change_lines를 디버거처럼 따라가는 영상�
 | 코드 변경, 저장소 구조 | 동작 흐름을 그림으로 보여 줌. 코드를 한 줄씩 읽지 않음 | [from-code-review.md](references/from-code-review.md) |
 | 함수의 실행 순서와 값 | 코드 줄 강조, 또는 실제 실행을 기록한 디버거 추적 | [code-trace.md](references/code-trace.md) |
 
+## 음성 선택
+
+기본은 Edge TTS입니다. API 키나 별도 API 요금이 들지 않지만 음성이 덜 자연스러울 수 있고, 온라인 서비스에 의존합니다. 빌더가 이 차이를 알린 뒤, 자연스러운 음성을 원한다고 명시하지 않으면 Edge로 진행합니다. Gemini를 선택하려면 `TTS_PROVIDER=gemini`와 `GEMINI_API_KEY`를 설정하세요. 음성 공급자를 묵시적으로 바꾸지 않습니다. `example/requirements-edge.txt`로 설치하고, 명령과 장면별 음성 기록·서비스 제한은 [TTS 가이드](references/tts.md)를 보세요.
+
 ## 원본 라이선스
 
 설명 영상을 만들어도 원본을 다시 배포할 권리는 생기지 않습니다. 공개할 영상에는 이런 원본을 씁니다.
@@ -142,7 +146,15 @@ export GEMINI_API_KEY=...
 .venv/bin/python example-debugger/pipeline.py
 ```
 
-대본, 모델, 목소리가 같은 음성이 `audio-cache/`에 있으면 다시 만들지 않고 API 키도 읽지 않습니다.
+**기본 음성은 Edge TTS입니다.** API 키나 별도 API 요금이 들지 않지만 억양이 덜 자연스러울
+수 있고 온라인 서비스에 의존합니다. 빌더가 이 점을 알리고, 자연스러운 음성 선호가 명시되지
+않으면 Edge로 진행합니다. Gemini 음성을 원하면 `TTS_PROVIDER=gemini`와
+`GEMINI_API_KEY`를 설정하세요. 공급자를 몰래 바꾸지 않습니다. `example/requirements-edge.txt`로
+설치하고, 단독 실행·MP3/WAV 보존·서비스 제한은 [TTS 가이드](references/tts.md)를 보세요.
+
+음성은 장면마다 만들며 설정이 맞는 파일은 재사용합니다. Gemini는 새 합성이 필요할 때만 API 키를
+읽습니다. 대본·모델·목소리가 같은 음성이 `audio-cache/`에 있으면 다시 만들지 않습니다.
+`WHISPER_MODEL`에 whisper.cpp 모델 경로를 넣으면 장면별 음성을 받아 적어 대본과 비교합니다.
 
 ## 구성
 
