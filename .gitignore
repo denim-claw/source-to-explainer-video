@@ -36,6 +36,12 @@ example/assets/*.part
 __pycache__/
 *.pyc
 .DS_Store
+.env.*
+!.env.example
+*.pem
+node_modules/
+example-3d/out/
+.hermes/
 
 # code-trace demo: derived assets stay local
 example-code-trace/build/

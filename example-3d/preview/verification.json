@@ -1,0 +1,252 @@
+{
+  "status": "technical-pass",
+  "createdUTC": "2026-10-19T01:06:39.225Z",
+  "kind": "original silent asset demo",
+  "master": {
+    "file": "kit.mp4",
+    "sha256": "1a8fe5ddfc5460f6f6552a3a37532dfcd58186d92c94de27082d67c4aa4d62b1",
+    "bytes": 598220,
+    "duration": 12,
+    "width": 1280,
+    "height": 720,
+    "fps": "30/1",
+    "frames": 360,
+    "audioStreams": 0,
+    "fullDecode": "pass"
+  },
+  "contact": {
+    "file": "contact.jpg",
+    "sha256": "4c61379db7e7f5901ef264b7b3daf11617da7a305c21fd766d0d7944df25014c",
+    "extractedFrameIndices": [
+      45,
+      105,
+      120,
+      125,
+      165,
+      225,
+      240,
+      252,
+      345
+    ],
+    "sampleTimes": [
+      1.5,
+      3.5,
+      4,
+      4.166666666666667,
+      5.5,
+      7.5,
+      8,
+      8.4,
+      11.5
+    ]
+  },
+  "browserProof": {
+    "status": "pass",
+    "scope": "same-browser PNG forward/reverse seeking; not cross-GPU equality or source/narration review",
+    "times": [
+      0,
+      0.9,
+      3.9,
+      4,
+      4.08,
+      4.17,
+      4.4,
+      5.5,
+      7.9,
+      8,
+      8.08,
+      8.17,
+      8.4,
+      10,
+      11.9
+    ],
+    "textureCount": 4,
+    "shots": 3,
+    "cameraSignatures": [
+      {
+        "shot": 0,
+        "sha256": "1f5aee72a22db419aadb93c8ac5293e0f155b326ea491f0a0a8c69f6468f1000"
+      },
+      {
+        "shot": 1,
+        "sha256": "400dffa2f1aa49917c87f64204e653b6d70d76f31c63c145be0a706f73f368da"
+      },
+      {
+        "shot": 2,
+        "sha256": "f10b266b254314658ac6906cda64c4038bfcd1b7e8d8bbc049ca452f2a3c040c"
+      }
+    ],
+    "labelChecks": [
+      {
+        "time": 0,
+        "labels": 4
+      },
+      {
+        "time": 0.9,
+        "labels": 4
+      },
+      {
+        "time": 3.9,
+        "labels": 4
+      },
+      {
+        "time": 4,
+        "labels": 4
+      },
+      {
+        "time": 4.08,
+        "labels": 4
+      },
+      {
+        "time": 4.17,
+        "labels": 4
+      },
+      {
+        "time": 4.4,
+        "labels": 4
+      },
+      {
+        "time": 5.5,
+        "labels": 4
+      },
+      {
+        "time": 7.9,
+        "labels": 4
+      },
+      {
+        "time": 8,
+        "labels": 4
+      },
+      {
+        "time": 8.08,
+        "labels": 4
+      },
+      {
+        "time": 8.17,
+        "labels": 4
+      },
+      {
+        "time": 8.4,
+        "labels": 4
+      },
+      {
+        "time": 10,
+        "labels": 4
+      },
+      {
+        "time": 11.9,
+        "labels": 4
+      }
+    ],
+    "framingChecks": [
+      {
+        "time": 0,
+        "visibleFoci": 4
+      },
+      {
+        "time": 0.9,
+        "visibleFoci": 4
+      },
+      {
+        "time": 3.9,
+        "visibleFoci": 4
+      },
+      {
+        "time": 4,
+        "visibleFoci": 4
+      },
+      {
+        "time": 4.08,
+        "visibleFoci": 5
+      },
+      {
+        "time": 4.17,
+        "visibleFoci": 5
+      },
+      {
+        "time": 4.4,
+        "visibleFoci": 5
+      },
+      {
+        "time": 5.5,
+        "visibleFoci": 5
+      },
+      {
+        "time": 7.9,
+        "visibleFoci": 5
+      },
+      {
+        "time": 8,
+        "visibleFoci": 2
+      },
+      {
+        "time": 8.08,
+        "visibleFoci": 2
+      },
+      {
+        "time": 8.17,
+        "visibleFoci": 2
+      },
+      {
+        "time": 8.4,
+        "visibleFoci": 2
+      },
+      {
+        "time": 10,
+        "visibleFoci": 2
+      },
+      {
+        "time": 11.9,
+        "visibleFoci": 2
+      }
+    ],
+    "labelAuditScope": "four DOM labels: viewport containment and pairwise DOM intersections only",
+    "frameHashes": {
+      "0": "b72781d81ae0e2b118be34cfd58650fc374bf5d96ccf588342fe342b1ff67c9c",
+      "4": "55a499f42b256e792fa45faeebd76d6bc9b648bb3403c350ce5e9661657d6cb1",
+      "8": "c967bc3ee606df8f169c5be644f3b2db00ef185aa908be8a543e9784aa436c8d",
+      "10": "f754e67d4cfc31898823b4be79c895c2d3c195cec2f2fe47d36c3e179f63d534",
+      "0.9": "a34b567be14f15db9228438aab9eb57daff60813a33327f511d09b315ee652e3",
+      "3.9": "58f223f4c6317bac21880fe85000af521479fa795c5ea7830b0bfba12f31dfa9",
+      "4.08": "48c7c4c1f717b6ed73de472fe6942e276b65c2c37faf09ce6d3d420809f0e1c9",
+      "4.17": "dc931340e9635c312697d4bf46c460327edb72c379f8bd52954a738cb7976498",
+      "4.4": "29d943f45b4fae5754c620a9a9223c840d9c61063fa40fc8d1bdce4e1fa57624",
+      "5.5": "8352a9c5183469c70cf9d3bcbc28012aa8dd1b71eabac4519ca8bb71c7313ee4",
+      "7.9": "8434dc10e130d70f5378e5342925b27a343d8b45c499eb21299de105b8164740",
+      "8.08": "2ee06f495315fa4cd0a0b2c9a0ab28314374508e1604f2563a2b65964c884f98",
+      "8.17": "1ef7c393f0eefe9cf4279eb15160a7e427956741f241df29bcd40ae02063620d",
+      "8.4": "e33a9d04ec435d398956a8a36166b5295dbb7a57d659f8154a3358860339d25e",
+      "11.9": "86000b1798ccfc3605474b3ba31a1b39b25e7f71ad20ac043fa9d9f8c19b2b94"
+    },
+    "externalRequests": 0
+  },
+  "sources": {
+    "package-lock.json": "2fa5f8bc934d320e5e6b1cc37d711562e0adf6b076809db7d0440ecf3229fa55",
+    "example-3d/scene.mjs": "cd19460b78ad4855816f47785f2528c20cc30b55b3b27b5b48c2ea22bc1454f9",
+    "example-3d/render.mjs": "bc8aa11d21978f33dfc918b6b024947d6c9ba29153ff2efbca73564de7d0c6a3",
+    "example-3d/static-server.mjs": "25e87675ce8146d937098608e9524557abf2243e5a1b9542dbd901fcd8fd9449",
+    "example-3d/index.html": "3cadbd86b42a74ea84bb873f8000cb45faa186088c7d54544d0aacfb10a40c82",
+    "assets/hybrid-3d/animals.mjs": "b89bd6da18a13b4c24b0e8dead1ac5ac6f916cb5b4edd75d41f1b96fbe83f393",
+    "assets/hybrid-3d/fixed-shot.mjs": "fab111d9df4ea8fb5270b7f0ff263eacb0919d6b7e5a1db114ca9bf2b1137b81",
+    "assets/hybrid-3d/fx-flipbook.mjs": "bd7b5e4850faf0a56c5dc9a74581d55de91ddfa760345381dae7b0fd0d3fd83e",
+    "assets/narrative-3d/actors.mjs": "86ad39dfe41eae67d3e83cc217c7da13037b8a2148f8d22079664db0244ac731",
+    "assets/narrative-3d/sets.mjs": "69365553b9cfb0e8c1ee22c76291fc54646f6536a9827fce2b919498cfed6e09",
+    "assets/hybrid-3d/textures/manifest.json": "00064c453f28fdce0df3cf4236746312e4fbb207e5c2a67a23193205589c20d9"
+  },
+  "tools": {
+    "node": "v26.7.0",
+    "chromium": "Chromium 154.0.8037.97 for Linux Mint",
+    "three": "0.186.1",
+    "puppeteerCore": "25.14.0"
+  },
+  "sandboxDisabled": false,
+  "notEstablished": [
+    "narration/caption sync",
+    "full-source coverage",
+    "historical fidelity",
+    "photorealism",
+    "IK/foot locking",
+    "human full-film review",
+    "cross-machine pixel identity"
+  ]
+}

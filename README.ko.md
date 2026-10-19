@@ -53,6 +53,18 @@ AI 덕분에 코드와 글은 빨리 만들어집니다. 하지만 그것을 검
 
 18초짜리 최소 예제도 있습니다: [가상 재고 함수의 코드 줄 추적](example-code-trace/README.ko.md).
 
+## 선택: 3D 에셋 키트
+
+[하이브리드 3D 키트](assets/hybrid-3d/README.md)에 사람·집/소품·사자·여우·늑대,
+샷별 고정 카메라와 불/연기 PNG 4종이 들어 있습니다. 다른 로컬 폴더 없이 쓸 수 있습니다.
+코드는 MIT, Unity 텍스처는 **CC0-1.0**으로 구분했습니다.
+[출처·변환·해시·재배포 범위](THIRD_PARTY_NOTICES.md)를 함께 보세요.
+
+[무음 12초 데모와 재현 방법](example-3d/README.md) ·
+[MP4](example-3d/preview/kit.mp4) · [실제 영상 추출 프레임](example-3d/preview/contact.jpg).
+에셋 동작 확인용이며, 내레이션 영상이나 비공개 책 영상의 공개본은 아닙니다.
+기존 2D 기본값과 음성 공급자 선택은 바꾸지 않습니다.
+
 ## 설치
 
 ```bash
@@ -74,7 +86,7 @@ PATH=".venv/bin:$PATH" bash example/assets/fetch-font.sh mono   # 코드 글꼴 
 필요한 도구:
 
 - Python 3.11 이상, `ffmpeg`, `ffprobe`
-- 실제 음성: `GEMINI_API_KEY`
+- 음성: 기본 Edge TTS. Gemini를 명시적으로 선택할 때만 `GEMINI_API_KEY` 필요
 - 선택: 음성 받아쓰기 검사용 `whisper-cli`와 모델 (`WHISPER_MODEL`)
 
 ## 사용법
@@ -91,7 +103,7 @@ selvage의 calculate_actual_change_lines를 디버거처럼 따라가는 영상�
 
 1. **원본 고정**: 판본, 범위, 커밋, 파일 해시를 기록합니다.
 2. **장면 계획**: 장면마다 주장 하나, 그림의 변화 하나를 정합니다.
-3. **음성**: 장면별로 Gemini TTS 음성을 만들고, 실제 길이로 시간표와 자막을 짭니다.
+3. **음성**: 선택한 공급자(기본 Edge)로 음성을 만들고, 실제 길이로 시간표와 자막을 짭니다.
 4. **렌더링**: Pillow로 프레임을 그리고 FFmpeg로 1280×720 H.264 영상을 만듭니다.
 5. **검사**: 설명이 원본과 맞는지 대조하고, 완성된 MP4의 프레임 수·디코딩·글자 겹침·음량을 따로 검사합니다.
 6. **패키지**: 영상, 자막, 검사 기록, 다시 만들 수 있는 소스를 묶습니다.
@@ -140,7 +152,7 @@ bash make_demo_audio.sh
 cd ..
 
 # 공개 원본 예제 세 편 (한국어와 영어)
-export GEMINI_API_KEY=...
+export TTS_PROVIDER=gemini GEMINI_API_KEY=...
 .venv/bin/python example-concept/pipeline.py
 .venv/bin/python example-architecture/pipeline.py --lang ko
 .venv/bin/python example-debugger/pipeline.py

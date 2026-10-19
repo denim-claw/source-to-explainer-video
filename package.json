@@ -1,0 +1,20 @@
+{
+  "name": "source-to-explainer-video-3d-kit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "verify:assets": "python3 scripts/verify_3d_assets.py",
+    "demo:3d": "node example-3d/render.mjs",
+    "test:browser": "node example-3d/render.mjs --proof"
+  },
+  "devDependencies": {
+    "three": "0.186.1",
+    "puppeteer-core": "25.14.0"
+  }
+}
