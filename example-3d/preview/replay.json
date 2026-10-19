@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "source": "whitelisted staged Git tree; no node_modules, out, .env, .hermes or private chapter assets",
+  "tree": "56e3e812fe36591aced25cc541b392b5f81ec206",
+  "archiveEntries": 44,
+  "nodeUnitTests": 45,
+  "checks": [
+    "fresh npm ci --ignore-scripts",
+    "45 Node tests including traversal/symlink regressions",
+    "four PNG hashes/grid/CRC",
+    "real 12s silent MP4, 360 frames, full decode",
+    "15 same-machine representative PNG hashes equal original run"
+  ],
+  "sourceHashesEqual": true,
+  "representativeFramesCompared": 15,
+  "allRepresentativeFramesEqual": true,
+  "originalMasterSHA256": "1a8fe5ddfc5460f6f6552a3a37532dfcd58186d92c94de27082d67c4aa4d62b1",
+  "replayMasterSHA256": "1a8fe5ddfc5460f6f6552a3a37532dfcd58186d92c94de27082d67c4aa4d62b1",
+  "limits": [
+    "same-machine/system-browser check, not cross-platform reproducibility",
+    "silent demo, not narration or source fidelity"
+  ]
+}

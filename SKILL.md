@@ -1,7 +1,7 @@
 ---
 name: source-to-explainer-video
 description: Use when a source or code execution must become a narrated explainer video, including line-level or debugger-style walkthroughs.
-version: 1.1.0
+version: 1.4.0
 author: min (curator) — merged from book-concept-video + video-deliverable-qa + karpathy-output-understanding
 license: MIT
 platforms: [linux, macos]
@@ -55,6 +55,28 @@ replacing a real renderer with a slide deck of static text.
 
 Report every artifact with absolute path, duration, size, SHA256, the QA reports and the
 fidelity report. Never publish or upload without a separate explicit instruction.
+
+### Optional 3D / hybrid mode
+
+Keep `concept-2d` the default. Select `concept-3d` for spatial relations and
+`narrative-3d` for concrete events/actions; hybrid explanations may use both.
+Read `references/hybrid-3d.md`, `assets/hybrid-3d/README.md` and
+`THIRD_PARTY_NOTICES.md` before importing assets. The kit includes actual local PNGs,
+not only absolute paths to someone's asset store.
+
+- Use original MIT people/sets/house/animals and the CC0 fire/smoke atlases when useful.
+  A licensed rendered output does not license redistribution of editable stock files.
+- Lock the camera per **shot**, reframe only at hard cuts. Fit the full-shot motion
+  union of chosen focal objects once, never auto-follow or refit every frame.
+- Distinct silhouettes and readable cause/consequence matter; an animal marker is
+  not an animal model and figures idling near a box are not an explanation.
+- Declare invented actions/destruction as illustrative reconstruction, not facts.
+- Measured speech timing, bottom screen-space subtitles and source review still apply.
+  Reuse speech for visual-only revisions; keep the configured TTS provider unchanged.
+- Frame/seek/bounds tests are separate from visual acceptance and source fidelity.
+  Run a short real encoded preflight; inspect the actual MP4 before full production.
+
+`example-3d/` is a **silent asset smoke test**, not a narrated chapter or source review.
 
 ### Choose the explanation style for a video
 
@@ -246,29 +268,18 @@ Full checklist: `references/video-qa.md`.
 - `qa/package-rerender.json` — archive extracted, real short narrated render, hashes.
 - `artifact-verification.json` — master + archive paths, sizes, SHA256, entry count.
 
-## Proven implementation references (curator profile)
+## Runnable implementation references
 
-- `/home/claw/pm-book-ch5-video/v2-2d/` — 2D relation diagrams + CairoSVG annotations:
-  `design.py`, `render.py`, `qa.py`, `package.py`.
-- `/home/claw/pm-book-ch6-video`, `pm-book-ch13-video`, `pm-book-ch7-video`,
-  `pm-book-ch8-video` — chapter productions with fidelity, preflight and package replay.
-- `/home/claw/source-to-explainer-video/example/` — minimal runnable example
-  (proves the pipeline with placeholder audio and no paid TTS).
-- `example-concept/` — one book section (The Cathedral and the Bazaar, OPL 2.0) as a
-  six-scene concept video, Korean and English, Gemini speech.
-- `example-architecture/` — an architecture review of `yc-software/qm` pinned by commit
-  and Git blob hashes, Korean and English, with the tests actually run named on screen.
-- `example-debugger/` — a recorded debugger trace of selvage's `HunkLineCalculator`,
-  Korean and English: original function, repository test input, values from trace events.
-- Older skills kept for their chapter-specific notes: `book-concept-video`,
-  `video-deliverable-qa`, `karpathy-output-understanding`.
+- `example/` — minimal pipeline proof with explicitly labelled placeholder audio.
+- `example-concept/` — one OPL-licensed book section as concept animation, ko/en.
+- `example-architecture/` — public QM architecture review pinned by commit/blob hashes.
+- `example-debugger/` — actual recorded execution of a public selvage function.
+- `example-code-trace/` — minimal trace example.
+- `example-3d/` — original silent 3D asset demo, pinned dependencies and deterministic
+  browser proof. It does not establish narration sync, complete source coverage,
+  historical fidelity or aesthetic approval.
 
-## min의 책 영상 보관 방식 (curator 프로필)
-
-- 장별 완성 후 R2에 MP4를 적재하고 하나의 모바일 친화 HTML 시리즈 페이지에 장별 인라인
-  재생기·직접 링크를 연결한다. 새 장도 같은 시리즈에 추가한다.
-- 이것은 보관 방식 승인이지 제3자 책 기반 전체 장 해설을 불특정 다수에게 공개할 권리
-  확인이 아니다. 업로드 전 `content-publishing` 저작권 게이트를 적용하고, 개인 학습용이면
-  페이지뿐 아니라 영상 자산 자체도 인증으로 보호한다.
-- Telegram 전달은 기본 `MEDIA:/절대/경로`. 완성된 장을 다음 장보다 먼저 전달하고, 이미
-  처리한 지연 완료 알림 때문에 재생성하거나 재전송하지 않는다.
+Keep private deployments, signed setup links, recordings, full source text, local
+absolute paths and per-user publishing credentials outside a public skill package.
+Publishing a private study page requires explicit approval and protection of the media
+itself, not just its index page. Follow the deployment's separate rights/auth gate.

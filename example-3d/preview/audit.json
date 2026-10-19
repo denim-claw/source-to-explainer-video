@@ -1,0 +1,86 @@
+{
+  "scope": "new 3D kit addition; original public examples retain their own licenses",
+  "baselineCommit": "9e98e2a7f1644960408cd87e528419158cf16d2d",
+  "rights": {
+    "originalProceduralCode": "MIT",
+    "bundledTextures": "4 named Unity Labs CC0-1.0 atlases",
+    "rawZipTgaNoticeFiles": "none; official publisher CC0 announcement is the provenance evidence",
+    "conversion": "decoded RGBA pixels checked equal between original ZIP TGA and each distributed PNG",
+    "extraPaidOrUnknownAssets": false,
+    "legalGuarantee": false,
+    "legalLimits": [
+      "CC0 excludes trademarks/patents and third-party clearance warranties",
+      "Chromium, FFmpeg, dependencies and fonts are not vendored by this change",
+      "H.264/toolchain deployment licensing remains separate"
+    ]
+  },
+  "tests": {
+    "nodeUnitTests": 45,
+    "nodeFailures": 0,
+    "existingOfflinePythonTtsTests": 6,
+    "pythonFailures": 0,
+    "assetPngCount": 4,
+    "assetPngBytes": 4519237,
+    "browserTimes": 15,
+    "sameMachineReplay": "final reviewed source, full silent render and 15 equal representative frame hashes; see replay.json",
+    "intentionalEarlyEncoderExit": {
+      "status": "pass",
+      "fixtureExitCode": 7,
+      "rendererExitCode": 1,
+      "noMasterProduced": true
+    }
+  },
+  "security": {
+    "gitleaksVersion": "8.30.1",
+    "gitleaksPublisherArchiveSha256": "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb",
+    "stagedDiffFindings": 0,
+    "baselineHistoryCommitsScanned": 15,
+    "baselineHistoryFindings": 0,
+    "knownConfiguredSecretLiteralFindings": 0,
+    "npmAuditVulnerabilities": 0,
+    "scopeLimit": "pattern and known-secret checks are not a guarantee of detecting every possible secret"
+  },
+  "visualSample": {
+    "kind": "assistant inspection of actual encoded contact sheet",
+    "encodedFramesInspected": 9,
+    "observations": [
+      "Lion, fox and two grey wolf meshes visible in the animal samples",
+      "Separate orange flame and smoke visible beside the procedural house after integration correction",
+      "Two articulated human figures remain visible; one turns and moves away",
+      "No obvious clipped focal mesh or overlapping DOM copy in the sampled frames"
+    ],
+    "limits": [
+      "small stylized effects, not volumetric simulation or a burning-building production",
+      "sampled inspection, not a full human film watch or user aesthetic approval",
+      "no narration/audio-sync or chapter/source-fidelity claim"
+    ]
+  },
+  "excluded": [
+    "private chapter videos",
+    "chapter text and translations",
+    "Gemini audio/provider metadata",
+    "credentials and signed setup links",
+    "node_modules",
+    "browser and FFmpeg binaries",
+    "fonts",
+    "raw EXR/TGA/ZIP"
+  ],
+  "independentReview": {
+    "kind": "separate read-only agent plus parent reproduction/regression tests",
+    "rightsFinding": "no copyright/provenance blocker identified; all four official ZIP/TGA/PNG hashes and normalized legal text independently confirmed",
+    "fixedIssues": [
+      {
+        "issue": "encoded path traversal bypassed original web-path allowlist",
+        "fix": "canonical target must remain in exact assets, example-3d or three/build subtree",
+        "tests": "actual loopback HTTP regressions for encoded/double-encoded traversal, private root fixtures, symlink escapes and allowed files"
+      },
+      {
+        "issue": "sprite gain also multiplied lamp intensity despite independence claim",
+        "fix": "lamp intensity is now independent of sprite gain",
+        "tests": "both gain directions verified independently"
+      }
+    ],
+    "finalMediaRegenerated": true,
+    "finalSourceHashesMatch": true
+  }
+}

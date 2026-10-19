@@ -52,6 +52,18 @@ run on the repository's own test input. Every value on screen was recorded at th
 
 There is also an 18-second minimal example: [a code-line trace of a fictional inventory function](example-code-trace/README.md).
 
+## Optional 3D asset kit
+
+A portable [hybrid-3D kit](assets/hybrid-3d/README.md) now includes procedural people,
+house/sets, lion/fox/wolf, fixed-shot camera fitting and four fire/smoke PNG atlases.
+Code is MIT; the Unity textures are **CC0-1.0**, not MIT. Sources, transformations,
+SHA256s and legal text are bundled; see [rights/limits](THIRD_PARTY_NOTICES.md).
+
+[Silent 12-second demo and rebuild instructions](example-3d/README.md) ·
+[MP4](example-3d/preview/kit.mp4) · [contact sheet](example-3d/preview/contact.jpg).
+This is an asset smoke test, not a narrated explainer or a private book upload.
+3D remains optional; the default concept renderer and TTS choice do not change.
+
 ## Installation
 
 ```bash
@@ -73,7 +85,7 @@ PATH=".venv/bin:$PATH" bash example/assets/fetch-font.sh mono   # code font (OFL
 Requirements:
 
 - Python 3.11+, `ffmpeg`, `ffprobe`
-- For real speech: `GEMINI_API_KEY`
+- Narration: Edge TTS by default; `GEMINI_API_KEY` only when Gemini is explicitly selected
 - Optional: `whisper-cli` and a model (`WHISPER_MODEL`) to transcribe the speech and compare it with the script
 
 ## Usage
@@ -90,7 +102,7 @@ The agent then works in this order:
 
 1. **Pin the source**: edition, range, commit and file hashes.
 2. **Plan scenes**: one claim and one visual change per scene.
-3. **Speech**: Gemini TTS per scene; the timeline and captions follow the measured audio lengths.
+3. **Speech**: the selected provider (Edge by default); timeline and captions follow measured audio lengths.
 4. **Render**: Pillow draws the frames and FFmpeg encodes 1280×720 H.264.
 5. **Check**: the explanation is compared with the source, and the encoded MP4 is checked separately for frame count, decoding, text overlap and audio level.
 6. **Package**: the video, captions, check records and the rebuildable source.
@@ -144,7 +156,7 @@ bash make_demo_audio.sh
 cd ..
 
 # The three public-source examples (Korean and English)
-export GEMINI_API_KEY=...
+export TTS_PROVIDER=gemini GEMINI_API_KEY=...
 .venv/bin/python example-concept/pipeline.py
 .venv/bin/python example-architecture/pipeline.py --lang en
 .venv/bin/python example-debugger/pipeline.py
