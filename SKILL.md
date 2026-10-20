@@ -1,7 +1,7 @@
 ---
 name: source-to-explainer-video
 description: Use when a source or code execution must become a narrated explainer video, including line-level or debugger-style walkthroughs.
-version: 1.5.0
+version: 1.5.1
 author: min (curator) — merged from book-concept-video + video-deliverable-qa + karpathy-output-understanding
 license: MIT
 platforms: [linux, macos]
@@ -74,8 +74,19 @@ actual encoded master (including settled connectors and phone-size qualifiers).
 Reconcile independent findings rather than inheriting an all-PASS author summary.
 Sampled semantics, continuous motion, listening, source fidelity, technical QA and
 user aesthetic approval remain separate verdicts. Preserve approved speech and old
-masters during local repairs. These additions do not change the default 2D renderer,
-the existing TTS defaults or the non-3D workflows.
+masters during local repairs. Validate that every item in an equal-status list belongs
+to one common visible group before its shared branch applies; disconnected label
+nodes can silently exclude part of the claim. Preserve claim-bearing modifiers and
+relational roles. Check settled endpoints instead of mistaking intended dashed or
+progressively revealed links for defects; never change necessity into permission to
+satisfy a gap review. Critical qualifications must read at phone size, and a disclaimer
+does not substantiate an unsupported spoken superlative.
+
+For local repairs, keep per-unit old/new renderer provenance, rerender only affected
+complete shots, compare encoded samples across ALL units (lossy re-encoding may affect
+untouched neighbors), and reinspect every changed sample. Preserve source speech and
+verify encoded-audio identity when stream-copying it. These additions do not change
+the default 2D renderer, existing TTS defaults or non-3D workflows.
 
 Reusable original native assets are maintained in
 https://github.com/denim-claw/prince-core-blender-assets; consult its manifest,

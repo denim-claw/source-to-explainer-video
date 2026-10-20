@@ -91,6 +91,24 @@ clamping the arm. For abstract claims, verify directed links, both sides of cont
 negations, conjunctions, conditions and author attribution. Do not imply that a necessary
 condition is sufficient permission or that a circumstance caused an outcome.
 
+Validate the **semantic graph**, not only line cap coordinates. When narration lists
+several equal-status qualities and then branches into alternatives, identify the whole
+list as one semantic group and verify that every member reaches the shared branch.
+Prefer a single multiline group label or an explicit bracket/common container; two
+nearby labelled nodes without a group connection are not one list, and a new directed
+edge between equal items can falsely introduce hierarchy. Inspect this grouping after
+all reveals and immediately before the cut, at full and phone size.
+
+Check labels against the exact utterance for claim-bearing modifiers such as most,
+least, always, only, both and not. A correct subtitle does not excuse a diagram that
+silently weakens a superlative, changes few to none, or drops a condition. Distinguish
+an incomplete visual paraphrase from an unsupported spoken claim before fixing it.
+
+For an entrusted pupil, teacher, deceiver or other relational role, name the relation
+or stage its recognizable consequence; two named figures approaching or gesturing
+only establish proximity, not teaching, care or deceit. Use a concise direct role
+label when literal reenactment would invent an event or make the shot harder to read.
+
 Major contradictions, missing central meaning and ambiguous causal agency block the
 full render. Review native evidence here; do not require a nonexistent full master to
 pass preflight. Conversely, a preflight pass cannot be reused as encoded acceptance.
@@ -104,8 +122,17 @@ animation sample rate explicit; encoded fps alone proves neither native 3D nor m
 Use the shared nonblocking render lock; report busy and exit, with no wait loop. Keep a
 supervising owner live for long production or use the supported persistence mechanism.
 Short-lived helpers may finish bounded probes/code; do not assume their children will
-survive helper cleanup. Save per-shot checkpoints, input signatures and real produced
-frame manifests. Report completed valid frames, not extrapolated progress.
+survive helper cleanup. Require a handoff with frozen-input checks, all-unit native
+verdicts, pilot hash/QA, full expected contiguous ranges, a validate-only command and
+one supervisor command that owns render → composition → encode → post-encode QA.
+Run validation in the parent, verify the pilot hash/decode and inspect actual encoded
+pilot evidence. Once required preflight gates pass under existing production/style
+approval, launch the full supervisor with persistent ownership and completion
+notification in the same turn; do not leave an authorized chapter at ready-to-run.
+Verify a live renderer and distinguish full-production progress from a previous
+pilot's shared progress file by checking the mode and required frame range.
+Save per-shot checkpoints, input signatures and real produced frame manifests.
+Report completed valid frames, not extrapolated progress.
 
 After interruption, reuse only complete matching shots with contiguous ranges and
 matching input/style/camera signatures. Preserve partial directories and rerender an
@@ -131,15 +158,29 @@ than rerendering valid native frames or paying for fresh speech.
    before the cut. Follow a questionable branch through the intervening clip. A
    progressive stroke is not a persistent defect, but an endpoint gap must not be
    excused as animation. Confirm source/target attachment, direction and readable hold;
-   label knockouts or dashed strokes must still read as a connected relation at phone
-   size. Check both inputs for conjunctions and necessary-versus-sufficient wording.
+   distinguish regular intentional dash spacing from a missing terminal segment or an
+   unintended break. Inspect the full-size endpoint and the declared relation style
+   before accepting a reviewer's gap finding; then test phone-size readability, since
+   numerically attached dashes may still be visually ambiguous. Keep required-condition
+   paths and broken relationships visually distinct. Do not add a permission arrow just
+   to appease a gap review: changing the arrowhead can turn necessity into sufficiency.
+   Check both inputs for conjunctions and necessary-versus-sufficient wording.
 5. **Phone legibility:** derive from that same MP4; check primary labels and secondary
-   qualifications, not just subtitles. A technically readable small qualifier may still
-   fail rapid phone viewing. Full-size screenshots do not establish phone readability.
+   qualifications, not just subtitles. Promote any condition, exception or attribution
+   needed to prevent a false reading into the main diagram or a dedicated readable beat;
+   do not hide it in a small low-contrast source footer. Verify its actual dwell time at
+   phone size. A technically decipherable still does not establish rapid reading, and
+   full-size screenshots do not establish phone readability.
 6. **Independent supervisor pass:** re-open the selected MP4 and evidence yourself;
    do not inherit an author's or child's all-PASS summary. Resolve unit ID → timestamp →
    frame hash → contact-sheet tile before review. Sheet geometry must include every tile.
-   Treat reviewer misidentifications as leads to verify, not automatic source corrections.
+   Give reviewers exact narration, phase times and intended action strength. Distinguish
+   a progressive reveal from a settled gap, context established in preceding utterances
+   from a genuinely missing label, and frightening/chasing from completed defeat.
+   If still samples cannot establish retreat, restraint or failed resistance, inspect
+   the moving excerpt before clearing that action gate; retain ACTION_CHECK_PENDING
+   instead of turning labelled intent into proven action. Treat reviewer
+   misidentifications as leads to verify, not automatic source corrections.
 7. **Honest scope:** record reviewed IDs/timestamps and reviewer identity. Sampled
    semantics, continuous playback, full human viewing, full listening, source fidelity,
    technical integrity and user aesthetic acceptance remain independent. User approval
@@ -153,15 +194,55 @@ validate frame-index mapping, and rerun the affected QA rather than rerendering 
 
 When independent review contradicts an all-PASS report, keep the attributed original
 review as history but update the current canonical ledger/summary with the unit, master
-hash, evidence times, wrong reading and disposition. A disclaimer in chat alone does
-not reconcile stale QA. Keep unresolved required gates PARTIAL/FAIL and unrun checks
-NOT_RUN even if the user likes the result.
+hash, evidence times, wrong reading and disposition. Normalize reviewer ID fields to
+the production manifest, assert disjoint review partitions and an exact union of all
+required IDs, then compute verdict totals in code. Retain separate source, visual,
+action, phone and technical gates; do not turn a partial action reading into a generic
+PASS because no contradiction was found. Keep the original ledger as an immutable
+backup before reconciliation. A disclaimer in chat alone does not reconcile stale QA.
+Keep unresolved required gates PARTIAL/FAIL and unrun checks NOT_RUN even if the user
+likes the result.
+
+An on-screen editorial or unverified-source notice does not substantiate a factual
+superlative in frozen narration. Audit such claims before reusing speech; if the audio
+is locked, preserve it and keep source fidelity PARTIAL until supporting evidence or
+an explicitly authorized wording/audio correction resolves the claim. Make the
+notice readable without suggesting that a larger disclaimer alone clears source QA.
 
 Fix pixels in a fresh build; preserve approved audio/source and earlier masters. Rebuild
 all affected native/composed frames, encode a new master and regenerate derivatives.
 If shared diagram logic changes, inspect all affected units, not just the reported one.
 Reuse prior inspection only for byte-identical samples with identical extraction
-settings; identical midpoints do not prove unchanged transitions or motion.
+settings; identical midpoints do not prove unchanged transitions or motion. Distinguish
+that inspection-reuse requirement from a fresh renderer replay: if rerendered image
+hashes differ, measure decoded pixel differences and inspect the fresh output rather
+than asserting byte equality or treating the mismatch alone as a semantic defect.
+Report exact-hash integrity and approximate visual reproducibility separately; tiny
+raster differences do not justify silently inheriting an earlier review verdict.
+
+### Targeted revisions without a full native rerender
+
+Keep a per-unit provenance map for mixed old/new builds. Rerender every frame of each
+changed shot and preserve the original complete checkpoint, exact source/renderer/
+style/timing hashes and frame hashes for each reused shot. A new global renderer hash
+must not silently bless old caches; conversely, do not rerender an entire chapter only
+to satisfy a naive global-hash cache key when unchanged per-unit contracts and their
+original producing code are independently verified. Require exactly one selected
+source for every global frame and assert unchanged duration, IDs and boundaries.
+Never modify the old build to make its checkpoints match the new implementation.
+
+Re-encoding a repaired chapter can change decoded pixels in neighboring untouched
+shots through inter-frame compression. Compare identical extraction settings across
+ALL unit IDs, not only planned repairs, and reinspect every changed sample—including
+untouched neighbors. Keep unchanged-native provenance separate from encoded-image
+byte equality. Do not inherit visual review merely because a shot was not scheduled
+for native repair. Preserve all old/new comparison mappings and cutoff samples.
+
+When speech is unchanged, keep the original WAV and provider metadata immutable and
+prefer copying the existing encoded audio stream when container/timeline settings
+permit it. Verify both source-WAV identity and extracted encoded-stream identity;
+stream-copy success does not prove pronunciation or listening. Rebuild timing from
+measured audio only if the audio or gap policy actually changes.
 
 Report the actual artifact, what was verified and what remains unverified. When the
 user asks to see work in progress, attach the requested real MP4 if it exists, labelled
@@ -171,21 +252,23 @@ Production completion and chat attachment do not grant public-release rights.
 
 ## Synchronize public skill and asset repositories safely
 
-Synchronize reusable behavior, not an entire private installation byte-for-byte.
-Inspect remotes, visibility, branch and existing dirty edits; stage only intended
-paths and preserve unrelated work. Export through an explicit sanitized file list:
-remove local production paths, personal context, source text, speech, videos and
-uncleared models. Preserve intentional public TTS/default-2D contracts. Keep native
-reusable source in the separate asset repository, with notices, manifest hashes
-and an actual clean-runtime render/import test. Verify documentation links and
-unchanged non-3D sections; run existing asset tests before committing. After each
-push, read back the exact remote ref/commit before claiming synchronization.
+Synchronize the reusable behavior, not the entire private installation byte-for-byte.
+Inspect target remotes, visibility, branch and existing dirty edits; stage only the
+intended paths and preserve unrelated work. Export private references through an
+explicit sanitized file list: remove local production paths, personal context,
+source text, speech, videos and uncleared models. Preserve public TTS/default-2D
+contracts when they intentionally differ from the installed private profile. Keep
+native reusable source in the separate asset repository, with license notices,
+manifest hashes and a real clean-runtime render/import test. Verify documentation
+links and unchanged non-3D sections; run existing asset tests before committing.
+After pushing each repository, read the exact remote ref/commit back before claiming
+synchronization. A local commit or successful-looking push alone is insufficient.
 
 ## Reusable public assets
 
 Use the separately maintained [native Blender asset pack](https://github.com/denim-claw/prince-core-blender-assets)
 for original procedural people, props and native hybrid helpers. Read its README,
 manifest, notices and actual proof scope before reuse. Static figures are not natural
-locomotion rigs, and a silent generic smoke test does not establish narrated source
-fidelity or full human viewing/listening. The portable Three.js kit remains available
-through [hybrid-3d.md](hybrid-3d.md); do not silently switch an approved native job to it.
+locomotion rigs; a generic smoke test does not establish narrated source fidelity or
+full human viewing/listening. The portable Three.js kit remains available through
+[hybrid-3d.md](hybrid-3d.md); do not silently switch an approved native job to it.
