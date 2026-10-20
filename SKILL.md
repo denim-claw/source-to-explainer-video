@@ -1,7 +1,7 @@
 ---
 name: source-to-explainer-video
 description: Use when a source or code execution must become a narrated explainer video, including line-level or debugger-style walkthroughs.
-version: 1.5.1
+version: 1.5.2
 author: min (curator) — merged from book-concept-video + video-deliverable-qa + karpathy-output-understanding
 license: MIT
 platforms: [linux, macos]

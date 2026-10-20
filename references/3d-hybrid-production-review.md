@@ -113,6 +113,26 @@ Major contradictions, missing central meaning and ambiguous causal agency block 
 full render. Review native evidence here; do not require a nonexistent full master to
 pass preflight. Conversely, a preflight pass cannot be reused as encoded acceptance.
 
+## 4b. Bound review cost and keep completion reachable
+
+- Declare the required source-backed claim, affected unit IDs and minimum before/change/settled evidence before delegating a repair. Default to one correction plus one targeted reinspection. Treat optional realism separately; an illustrative spill does not require a scientifically validated fluid/tree-contact mechanism unless that is the actual brief.
+- Separate diagnostic extractions from required acceptance samples in the manifest. Do not make every newly extracted frame a fresh mandatory review task. Freeze the required sample set before inspection; never relax it retrospectively just to turn an existing failure green.
+- Reuse inspected evidence only by exact image hash, extraction settings and unit/phase mapping. Do not inherit native review for a newly encoded frame. Merge unchanged evidence once and direct further work only to changed claims.
+- When the user explicitly stops further review and requests the current version, preserve existing failures and approvals, record the authorized scope change separately, and deliver a clearly scoped review copy after technical checks. Mark omitted checks NOT_RUN; never forge native/pilot/listening approval or bypass security/permission controls. A stopped visual-review loop is not permission to ignore damaged media or missing speech.
+- Keep a durable work record outside renderer fingerprint inputs: current build/master, process handle, latest user decision, completed audio hashes, required next command and remaining checks. Re-read live state after reset; do not restart paid synthesis or completed shots from an old summary.
+- Attribute cost by production stage. Show noncached input/output and cache-read totals separately; distinguish dedicated child tasks from a mixed parent session and external speech/image calls. Never present a partial total as the full project cost or convert API prices into subscription-quota percentages.
+
+### Reusable connected-flow asset
+
+The companion [native asset repository](https://github.com/denim-claw/prince-core-blender-assets)
+provides `blender/flow_diversion.py::FlowDiversion`: a connected inlet/turn/outlet and
+a separate landward overflow crossing, with distinct screen-label anchors and pure
+phase updates. See its README and `tests/flow_diversion_proof.py`. It is a fixed-layout
+kinematic metaphor, not fluid simulation or validated tree-contact physics. A clean
+three-file copy rendered three native Workbench AA16 stills and passed topology,
+reverse-seek and visibility checks; this is not continuous-motion or visual approval.
+Use it only where flow and residual-risk distinctions carry the source-backed claim.
+
 ## 5. Produce with bounded ownership and resumable provenance
 
 Benchmark a real representative native frame and record engine/device/AA/shadows.
