@@ -1,7 +1,7 @@
 ---
 name: source-to-explainer-video
 description: Use when a source or code execution must become a narrated explainer video, including line-level or debugger-style walkthroughs.
-version: 1.4.0
+version: 1.5.0
 author: min (curator) — merged from book-concept-video + video-deliverable-qa + karpathy-output-understanding
 license: MIT
 platforms: [linux, macos]
@@ -60,6 +60,28 @@ fidelity report. Never publish or upload without a separate explicit instruction
 
 Keep `concept-2d` the default. Select `concept-3d` for spatial relations and
 `narrative-3d` for concrete events/actions; hybrid explanations may use both.
+**Only when a 3D mode is selected**, load
+`references/3d-hybrid-production-review.md`, `references/narrative-3d.md` and
+`references/3d-mode-quality.md`. Route concrete events to readable actor/action/
+consequence and abstract relations to concise direct-label motion diagrams. Do not
+force abstract emotions into mannequin acting or make viewers decode numbered badges.
+Preserve the approved renderer; native Blender requests include abstract graphics in
+that same native pipeline, with screen-space caption compositing allowed.
+
+The 3D-only workflow requires a narrated moving pilot, a falsifiable per-utterance
+visual ledger, native preflight before full production, and separate review of the
+actual encoded master (including settled connectors and phone-size qualifiers).
+Reconcile independent findings rather than inheriting an all-PASS author summary.
+Sampled semantics, continuous motion, listening, source fidelity, technical QA and
+user aesthetic approval remain separate verdicts. Preserve approved speech and old
+masters during local repairs. These additions do not change the default 2D renderer,
+the existing TTS defaults or the non-3D workflows.
+
+Reusable original native assets are maintained in
+https://github.com/denim-claw/prince-core-blender-assets; consult its manifest,
+licensing notices and tested scope before importing. Do not copy private chapter
+speech, source text or uncleared third-party models into either public repository.
+
 Read `references/hybrid-3d.md`, `assets/hybrid-3d/README.md` and
 `THIRD_PARTY_NOTICES.md` before importing assets. The kit includes actual local PNGs,
 not only absolute paths to someone's asset store.

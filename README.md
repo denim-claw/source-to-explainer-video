@@ -64,6 +64,20 @@ SHA256s and legal text are bundled; see [rights/limits](THIRD_PARTY_NOTICES.md).
 This is an asset smoke test, not a narrated explainer or a private book upload.
 3D remains optional; the default concept renderer and TTS choice do not change.
 
+### Native Blender hybrid workflow
+
+The [3D-only production/review playbook](references/3d-hybrid-production-review.md)
+uses concrete actor/action scenes for events and direct-label animated diagrams for
+abstract relations. It adds a narrated pilot, per-utterance semantic contracts,
+native preflight and independent encoded-master/phone-size review. Do not mistake
+static coverage or a valid codec for verified action, meaning or listening.
+
+Read [narrative staging](references/narrative-3d.md) and
+[3D quality gates](references/3d-mode-quality.md). Reusable native source assets live
+in the separate [Blender asset repository](https://github.com/denim-claw/prince-core-blender-assets).
+Private chapter text, speech, video and uncleared stock models are not included.
+This is an optional 3D extension, not a change to the 2D or speech-provider defaults.
+
 ## Installation
 
 ```bash
