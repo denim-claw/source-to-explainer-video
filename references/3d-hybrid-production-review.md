@@ -286,6 +286,12 @@ synchronization. A local commit or successful-looking push alone is insufficient
 
 ## Reusable public assets
 
+For chapter-based pattern selection and links to generic public asset proofs, read
+[`native-reference-patterns.md`](native-reference-patterns.md). The four private
+chapter videos are not bundled; use a separately maintained local viewing index for
+exact master revisions and timecodes. Start from one relevant pattern rather than
+repeating an entire film's design or review.
+
 Use the separately maintained [native Blender asset pack](https://github.com/denim-claw/prince-core-blender-assets)
 for original procedural people, props and native hybrid helpers. Read its README,
 manifest, notices and actual proof scope before reuse. Static figures are not natural
