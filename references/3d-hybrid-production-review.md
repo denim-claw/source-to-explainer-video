@@ -287,9 +287,9 @@ synchronization. A local commit or successful-looking push alone is insufficient
 ## Reusable public assets
 
 For chapter-based pattern selection and links to generic public asset proofs, read
-[`native-reference-patterns.md`](native-reference-patterns.md). The four private
-chapter videos are not bundled; use a separately maintained local viewing index for
-exact master revisions and timecodes. Start from one relevant pattern rather than
+[`native-reference-patterns.md`](native-reference-patterns.md). The four chapter MP4s are bundled in `assets/prince-references/`; its manifest records
+exact master hashes and measured excerpt ranges. Use video/frame tools to inspect
+the relevant file rather than assuming inclusion means it was already reviewed. Start from one relevant pattern rather than
 repeating an entire film's design or review.
 
 Use the separately maintained [native Blender asset pack](https://github.com/denim-claw/prince-core-blender-assets)

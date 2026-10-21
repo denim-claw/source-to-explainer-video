@@ -1,7 +1,7 @@
 ---
 name: source-to-explainer-video
 description: Use when a source or code execution must become a narrated explainer video, including line-level or debugger-style walkthroughs.
-version: 1.5.2
+version: 1.5.3
 author: min (curator) — merged from book-concept-video + video-deliverable-qa + karpathy-output-understanding
 license: MIT
 platforms: [linux, macos]
@@ -61,7 +61,8 @@ fidelity report. Never publish or upload without a separate explicit instruction
 Keep `concept-2d` the default. Select `concept-3d` for spatial relations and
 `narrative-3d` for concrete events/actions; hybrid explanations may use both.
 **Only when a 3D mode is selected**, load
-`references/3d-hybrid-production-review.md`, `references/narrative-3d.md` and
+`references/3d-hybrid-production-review.md` (including the actual MP4 references under
+`assets/prince-references/`, with manifest timecodes), `references/narrative-3d.md` and
 `references/3d-mode-quality.md`. Route concrete events to readable actor/action/
 consequence and abstract relations to concise direct-label motion diagrams. Do not
 force abstract emotions into mannequin acting or make viewers decode numbered badges.

@@ -1,0 +1,111 @@
+{
+  "purpose": "Rendered chapter reference videos; select relevant excerpts, not all four by default",
+  "count": 4,
+  "total_bytes": 44845122,
+  "new_render_or_tts": false,
+  "not_a_blanket_qa_pass": true,
+  "files": [
+    {
+      "chapter": 15,
+      "file": "prince-15.mp4",
+      "bytes": 6955276,
+      "sha256": "5a1a93dcb829066fe618496d18eb06fe17bab5e77a4e49670f4970a32742a259",
+      "duration_seconds": 225.2,
+      "width": 1280,
+      "height": 720,
+      "reference_clips": [
+        {
+          "start": 78.16,
+          "end": 85.28,
+          "purpose": "Conditional use / non-use diagram"
+        },
+        {
+          "start": 184.28,
+          "end": 193.2,
+          "purpose": "Negation and necessary condition"
+        }
+      ],
+      "viewing_url": "https://min-library.min-curator.workers.dev/learn/prince-machiavelli-public#prince-15",
+      "source_edition": "Luigi Ricci / Project Gutenberg 57037"
+    },
+    {
+      "chapter": 17,
+      "file": "prince-17.mp4",
+      "bytes": 14315588,
+      "sha256": "79b8034b37c0ff656bbfd8b48948336e529b49c5b93215c4055f356ed9bd46fd",
+      "duration_seconds": 409.533333,
+      "width": 1280,
+      "height": 720,
+      "reference_clips": [
+        {
+          "start": 12.93,
+          "end": 41.98,
+          "purpose": "Concrete case and outcome contrast"
+        },
+        {
+          "start": 171.23,
+          "end": 193.42,
+          "purpose": "Abstract obligation / punishment links"
+        }
+      ],
+      "viewing_url": "https://min-library.min-curator.workers.dev/learn/prince-machiavelli-public#prince-17",
+      "source_edition": "Luigi Ricci / Project Gutenberg 57037"
+    },
+    {
+      "chapter": 18,
+      "file": "prince-18.mp4",
+      "bytes": 13412326,
+      "sha256": "98a40d33f0ba4a9c857d093d7dfe3c756623389bf2eba1d0087138113f6a4727",
+      "duration_seconds": 399.8,
+      "width": 1280,
+      "height": 720,
+      "reference_clips": [
+        {
+          "start": 89.74,
+          "end": 115.98,
+          "purpose": "Animal role contrast; action clarity partial"
+        },
+        {
+          "start": 232.87,
+          "end": 251.4,
+          "purpose": "Coequal qualities with shared conditions"
+        }
+      ],
+      "viewing_url": "https://min-library.min-curator.workers.dev/learn/prince-machiavelli-public#prince-18",
+      "source_edition": "Luigi Ricci / Project Gutenberg 57037"
+    },
+    {
+      "chapter": 25,
+      "file": "prince-25.mp4",
+      "bytes": 10161932,
+      "sha256": "b4fee5d2f283a33772a4765b65bdb444d09bbdbe9b7f9a6696414852259096bd",
+      "duration_seconds": 290.233333,
+      "width": 1280,
+      "height": 720,
+      "reference_clips": [
+        {
+          "start": 37.98,
+          "end": 76.99,
+          "purpose": "Flood, preparation and residual risk"
+        },
+        {
+          "start": 112.76,
+          "end": 133.63,
+          "purpose": "Same method / different conditions"
+        },
+        {
+          "start": 175.46,
+          "end": 217.69,
+          "purpose": "Actor motives and counterfactual distinction"
+        },
+        {
+          "start": 281.5,
+          "end": 289.71,
+          "purpose": "Closing visual callback"
+        }
+      ],
+      "viewing_url": "https://min-library.min-curator.workers.dev/learn/prince-machiavelli-public#prince-25",
+      "source_edition": "W. K. Marriott / Project Gutenberg 1232"
+    }
+  ]
+}
