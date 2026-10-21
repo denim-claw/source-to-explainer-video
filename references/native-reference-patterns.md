@@ -1,8 +1,11 @@
 # Native hybrid reference patterns
 
 This guide summarizes reusable visual patterns from four chapter-length explainers
-of Machiavelli's *The Prince*. The actual videos and private production evidence
-are not distributed in this repository. A local installation may maintain a separate
+of Machiavelli's *The Prince*. **[Watch the four public reference videos](https://min-library.min-curator.workers.dev/learn/prince-machiavelli-public)** — no password required. The videos are hosted separately, not bundled in this repository; raw assets, narration files and private production evidence remain excluded.
+
+Viewing entry points: [chapter 15](https://min-library.min-curator.workers.dev/learn/prince-machiavelli-public#prince-15) (conditions, 78.16–85.28s); [chapter 17](https://min-library.min-curator.workers.dev/learn/prince-machiavelli-public#prince-17) (concrete contrast, 12.93–41.98s); [chapter 18](https://min-library.min-curator.workers.dev/learn/prince-machiavelli-public#prince-18) (coequal qualities, 232.87–251.40s); [chapter 25](https://min-library.min-curator.workers.dev/learn/prince-machiavelli-public#prince-25) (flow and preparation, 37.98–76.99s). Anchors select chapters, not playback time; seek within the player. The page preserves known limitations and third-party credits.
+
+A local installation may maintain a separate
 viewing index with exact master hashes, measured time ranges and access-controlled links.
 A reference demonstrates a technique; it is not a blanket source/visual/listening PASS.
 
