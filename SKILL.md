@@ -140,6 +140,23 @@ For code sources the "range" is the diff plus surrounding files plus test eviden
 
 ## 2. Plan before spending
 
+- Read `references/visual-routing.md` to route each claim by audience and explanatory
+  purpose. `concept-2d` does not mean boxes only: show recognizable actors, actions and
+  outcomes for concrete cases, and diagrams for classifications/abstract relations.
+  Do not switch the approved renderer or add decoration in the name of education.
+- Apply `references/production-discipline.md` in all modes: an effort-only request
+  preserves the approved model/provider (keep Sol when approved), reuse original speech
+  and assets, and set a review/spending ceiling before delegation. Procedural Pillow
+  art, authored SVG and image generation are different creation methods; name the one
+  actually used, not an imagined tool call.
+- Compare styles with the same source, narration, original audio, timing and essential
+  information; record unavoidable differences. Keep technical QA, source fidelity,
+  preference and measured learning separate. No learning test means educational
+  improvement is a design hypothesis, not a demonstrated effect.
+- A later 'one chapter first; I will review' instruction is a new acceptance gate:
+  complete the selected chapter, preserve prior masters and hold all other chapters.
+  Do not resume the series automatically after rendering or an aesthetic endorsement.
+
 - Write the scene table first: id, source location, source claim, the *one* visual change
   that explains it, narration, and the exception that must survive.
 - One claim per scene. One action per instruction. One visual change per claim.

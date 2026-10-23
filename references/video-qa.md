@@ -48,6 +48,15 @@ ffmpeg  -v error -y -ss 12.5 -i master.mp4 -frames:v 1 out.png
   built-in encoder tag of the produced file when it disagrees with the installed
   package.
 
+## Audio reuse identity
+
+- Verify reused narration on separate axes: original WAV hashes, compressed AAC
+  payloads, packet PTS/DTS/durations, and decoded PCM. Stream-copy can preserve every
+  payload and all decoded speech while the muxed last-packet duration changes slightly.
+  Record the exact difference and sample rate; do not claim every timing field is
+  identical. Decode and compare before concluding speech is missing or regenerating
+  good audio. Preserve original reports when correcting an overstated identity claim.
+
 ## Motion claims
 
 - Pixel change proves motion, not meaning. If you assert that a diagram now shows a
