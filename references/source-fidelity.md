@@ -31,6 +31,16 @@ Keep these fields in the scene JSON or a companion table:
   did not review it, do not claim one did.
 - Do not convert user satisfaction into factual approval.
 
+## Verbatim-run check (automatic)
+
+`example/verbatim_check.py --source <private transcript> --plan scenes-draft.json` normalises
+both sides (Unicode NFKC, then removes whitespace and punctuation) and reports every run of
+at least `--min` normalised characters (default 15, about 20 with spaces in Korean) that
+appears in both narration/on-screen text and the source. Quoted key phrases can be allowed
+with `--allow`. Keep the transcript inside the private source folder; the report stores only
+the matched run, scene id and length, not surrounding source text. Without a transcript the
+check is unrun: say so.
+
 ## Privacy and copyright
 
 - A user-supplied personal scan is an authorised analysis source. Never copy the PDF, the
