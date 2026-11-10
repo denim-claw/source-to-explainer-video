@@ -241,10 +241,14 @@ page.
   `references/tts.md`. Run a voice audition (same sentence, a few voices, local listening
   page) only when the user asks for one; state its cost first for paid providers.
 - **Optional xAI Grok TTS** (paid per character, `XAI_API_KEY`): only when the user selects
-  it; Edge stays the default. Default voice `perseus` (low, calm male). Use
-  `example/grok_tts_adapter.py`: it keeps the returned WAV byte-for-byte and writes a
-  pipeline WAV with the same PCM behind true RIFF sizes, because the API's WAV header carries
-  placeholder lengths. State scene count and estimated cost and get approval before calling.
+  it; Edge stays the default. Default voice `perseus` (low, calm male). **Grok defaults to one
+  take**: all scenes in one request with character timestamps, cut into scene WAVs mid-pause
+  (byte-identical reassembly asserted), so one performance keeps tone and pace even; any
+  narration edit re-synthesises the whole take. Per-scene calls remain available. Use
+  `example/grok_tts_adapter.py`: it keeps the returned audio byte-for-byte and writes
+  pipeline WAVs with the same PCM behind true RIFF sizes, because the API's WAV header carries
+  placeholder lengths. Set the scene gap to 0 for a take (its pauses are already spoken).
+  State scene count and estimated cost and get approval before calling.
 - Validate completed audio (script text, model, voice, metadata) **before** loading any
   API key; load the key lazily only when audio is genuinely missing. A missing credential
   must not block reuse, re-render or QA.
