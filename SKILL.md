@@ -1,7 +1,7 @@
 ---
 name: source-to-explainer-video
 description: Use when a source or code execution must become a narrated explainer video, including line-level or debugger-style walkthroughs.
-version: 1.6.0
+version: 1.7.0
 author: min (curator) — merged from book-concept-video + video-deliverable-qa + karpathy-output-understanding
 license: MIT
 platforms: [linux, macos]
@@ -145,6 +145,11 @@ rendering, encoded-file QA and packaging stay shared.
    case study and tip.
 
 For code sources the "range" is the diff plus surrounding files plus test evidence.
+
+**Multi-chapter sources:** keep a book memory folder (`books/<book>/shared/`: `book.json`,
+`glossary.json`, `lessons.md`, `verbatim-allow.txt`) and a generated `meta.json`. Read the
+glossary and lessons before the scene table, give them to reviewers, and update them after
+delivery. See `references/book-memory.md`.
 
 ## 2. Plan before spending
 
@@ -314,6 +319,8 @@ Full checklist: `references/video-qa.md`.
   last, then re-confirm the master's on-disk hash.
 - Report absolute paths, duration, sizes, SHA256, which QA ran, which did **not**, and the
   remaining limits.
+- For a multi-chapter source, add recurring lessons and new terms to the book memory and
+  regenerate the book's `meta.json`.
 
 ## Pitfalls
 
