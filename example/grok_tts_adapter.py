@@ -1,7 +1,11 @@
-"""Opt-in xAI Grok TTS: preserve the returned WAV, derive a header-repaired pipeline WAV,
+"""Opt-in xAI Grok TTS: preserve the returned audio, derive header-repaired pipeline WAVs,
 record provenance, reuse offline without reading the key.
 
-python example/grok_tts_adapter.py --text '설명 영상입니다.' --wav build/audio/scene-01.wav --voice perseus
+One take (default for Grok): every scene in ONE request with character timestamps, then cut
+per-scene WAVs at the pauses between scenes. One voice performance keeps tone and pace even.
+    python example/grok_tts_adapter.py --scenes-json scenes-draft.json --out-dir audio
+Per scene (one request per scene, cheaper to redo a single scene):
+    python example/grok_tts_adapter.py --text '설명 영상입니다.' --wav build/audio/scene-01.wav
 Requires XAI_API_KEY only when audio is genuinely missing. Paid per character; get approval first.
 
 Why a repaired copy: as of 2026-11 the unary POST /v1/tts response with codec=wav carries a
@@ -11,6 +15,7 @@ The original bytes are kept unchanged as scene-NN.xai-original.wav; the pipeline
 carries the same PCM bytes (hash recorded for both) behind a header with the true sizes.
 """
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -64,9 +69,11 @@ def build_wav(fmt, pcm):
             + b'data' + struct.pack('<I', len(pcm)) + pcm)
 
 
-def _request(text, voice, language, speed, key):
+def _request(text, voice, language, speed, key, with_timestamps=False):
     body = dict(text=text, voice_id=voice, language=language,
                 output_format=dict(codec='wav', sample_rate=SAMPLE_RATE))
+    if with_timestamps:
+        body['with_timestamps'] = True
     if speed != 1.0:
         body['speed'] = speed
     req = urllib.request.Request(ENDPOINT, data=json.dumps(body).encode('utf-8'), method='POST',
@@ -136,16 +143,132 @@ def synthesize(wav, text, voice='perseus', language='ko', speed=1.0):
     return 'synthesized'
 
 
+SEPARATOR = '\n\n'
+
+
+def cut_samples(texts, chars, times, rate, n_samples, sep=SEPARATOR):
+    """Sample index where each scene after the first starts.
+
+    The cut sits in the middle of the pause between the last spoken character of scene i and
+    the first character of scene i+1, using the returned per-character timestamps.
+    """
+    full = sep.join(texts)
+    if ''.join(chars) != full or len(chars) != len(times):
+        raise ValueError('Timestamps do not map 1:1 onto the request text; refusing to cut')
+    cuts, pos = [], 0
+    for k, t in enumerate(texts[:-1]):
+        end_idx = pos + len(t.rstrip()) - 1
+        start_idx = pos + len(t) + len(sep)
+        while full[start_idx].isspace():
+            start_idx += 1
+        a, b = times[end_idx][1], times[start_idx][0]
+        if b < a:
+            raise ValueError(f'Scene {k + 2} starts before scene {k + 1} ends in the timestamps')
+        cuts.append(min(n_samples, max(0, round((a + b) / 2 * rate))))
+        pos += len(t) + len(sep)
+    if cuts != sorted(cuts) or (cuts and (cuts[0] <= 0 or cuts[-1] >= n_samples)):
+        raise ValueError('Cut points are not strictly inside the take')
+    return cuts
+
+
+def synthesize_take(out_dir, texts, voice='perseus', language='ko', speed=1.0, request=None):
+    """One request for all scenes; writes take files plus scene-NN.wav slices. Returns status."""
+    if not texts or any(not t.strip() for t in texts):
+        raise ValueError('Every scene needs narration')
+    out = pathlib.Path(out_dir)
+    meta = out / 'take-metadata.json'
+    files = [out / 'take.xai-response.json', out / 'take.xai-original.wav', out / 'take.wav']
+    scenes = [out / f'scene-{k + 1:02d}.wav' for k in range(len(texts))]
+    identity = dict(provider='xai', model=MODEL, mode='one-take', texts=list(texts), voice=voice,
+                    language=language, speed=speed, separator=SEPARATOR)
+    if meta.exists() or any(p.exists() for p in files + scenes):
+        if not meta.is_file() or not all(p.is_file() for p in files + scenes):
+            raise ValueError('Incomplete take cache; choose a new output dir or remove it explicitly')
+        old = json.loads(meta.read_text())
+        if any(old.get(k) != v for k, v in identity.items()):
+            raise ValueError('Take metadata differs from the plan; choose a new output dir')
+        hashes = [digest(p.read_bytes()) for p in files] + [digest(p.read_bytes()) for p in scenes]
+        if hashes != old['file_sha256'] + [x['sha256'] for x in old['scenes']]:
+            raise ValueError('Take audio changed after synthesis')
+        return 'reused'
+
+    full = SEPARATOR.join(texts)
+    if request is None:
+        key = os.environ.get('XAI_API_KEY')  # lazy: only when audio is genuinely missing
+        if not key:
+            raise SystemExit('XAI_API_KEY is not set; reuse needs no key, new synthesis does')
+        body, raw, headers, elapsed = _request(full, voice, language, speed, key, with_timestamps=True)
+    else:  # injected for offline tests
+        body, raw, headers, elapsed = request(full)
+    resp = json.loads(raw)
+    audio = base64.b64decode(resp['audio'])
+    fmt, pcm = split_wav(audio)
+    channels, rate, bits = check_fmt(fmt)
+    frame = channels * bits // 8
+    n = len(pcm) // frame
+    seconds = n / rate
+    if seconds <= 0.2 or seconds > max(60.0, len(full) * 0.6):
+        raise ValueError(f'Implausible audio length {seconds:.2f}s for {len(full)} chars')
+    ts = resp['audio_timestamps']
+    cuts = cut_samples(texts, ts['graph_chars'], ts['graph_times'], rate, n)
+    bounds = [0] + cuts + [n]
+    slices = [pcm[bounds[k] * frame:bounds[k + 1] * frame] for k in range(len(texts))]
+    if b''.join(slices) != pcm:
+        raise AssertionError('Scene slices do not reassemble the take byte-for-byte')
+    fixed = build_wav(fmt, pcm)
+    scene_wavs = [build_wav(fmt, x) for x in slices]
+    record = dict(identity, adapter_version=2, endpoint=ENDPOINT,
+                  request=dict(body, text='<texts joined by separator>'),
+                  id=headers.get('x-trace-id'), usage=dict(input_characters=len(full)),
+                  price_note=PRICE_NOTE, estimated_cost_usd=round(len(full) * 15 / 1e6, 6),
+                  response_date=headers.get('date'), elapsed_s=round(elapsed, 3),
+                  reported_duration_s=resp.get('duration'), seconds=seconds, sample_rate=rate,
+                  channels=channels, bits=bits, original_header_sizes=dict(riff=struct.unpack('<I', audio[4:8])[0]),
+                  pcm_sha256=digest(pcm), cut_samples=cuts,
+                  reassembly_check='concatenated scene PCM == take PCM (byte-identical)',
+                  file_names=[p.name for p in files],
+                  file_sha256=[digest(raw), digest(audio), digest(fixed)],
+                  scenes=[dict(file=p.name, text=t, start_s=bounds[k] / rate,
+                               seconds=(bounds[k + 1] - bounds[k]) / rate, sha256=digest(w),
+                               pcm_sha256=digest(x))
+                          for k, (p, t, w, x) in enumerate(zip(scenes, texts, scene_wavs, slices))],
+                  note='One Grok take with per-character timestamps; scenes cut mid-pause. '
+                       'Original JSON response and decoded WAV kept unchanged. '
+                       'Naturalness not human-verified.')
+    out.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='.xai-', dir=out) as tmp:
+        staged = []
+        for p, data in zip(files + scenes, [raw, audio, fixed] + scene_wavs):
+            t = pathlib.Path(tmp) / p.name
+            t.write_bytes(data)
+            staged.append((t, p))
+        for t, p in staged:
+            t.replace(p)
+        meta.write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n')
+    return 'synthesized'
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    text = parser.add_mutually_exclusive_group(required=True)
-    text.add_argument('--text')
-    text.add_argument('--text-file', type=pathlib.Path)
-    parser.add_argument('--wav', type=pathlib.Path, required=True)
+    src = parser.add_mutually_exclusive_group(required=True)
+    src.add_argument('--scenes-json', type=pathlib.Path, help='one take: list of scenes with "narration"')
+    src.add_argument('--text')
+    src.add_argument('--text-file', type=pathlib.Path)
+    parser.add_argument('--out-dir', type=pathlib.Path, help='one take: directory for take + scene WAVs')
+    parser.add_argument('--wav', type=pathlib.Path, help='per scene: output WAV')
     parser.add_argument('--voice', default='perseus')
     parser.add_argument('--language', default='ko')
     parser.add_argument('--speed', type=float, default=1.0)
     args = parser.parse_args()
+    if args.scenes_json:
+        plan = json.loads(args.scenes_json.read_text())
+        plan = plan['scenes'] if isinstance(plan, dict) else plan
+        texts = [x['narration'] for x in plan]
+        print(synthesize_take(args.out_dir or args.scenes_json.parent / 'audio', texts,
+                              args.voice, args.language, args.speed))
+        return
+    if not args.wav:
+        parser.error('--wav is required for per-scene synthesis')
     narration = args.text if args.text is not None else args.text_file.read_text(encoding='utf-8')
     print(synthesize(args.wav, narration, args.voice, args.language, args.speed))
 

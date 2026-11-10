@@ -4,7 +4,8 @@ python example/verbatim_check.py --source private/transcript.txt --plan scenes-d
     [--min 15] [--allow '짧은 인용구'] [--out qa/verbatim.json]
 
 Normalisation (both sides): Unicode NFKC, then remove whitespace and punctuation/symbols.
-A finding is a maximal shared run of at least --min normalised characters. The report keeps
+A finding is a maximal shared run of at least --min normalised characters that still has
+--min characters after the --allow phrases are cut out of it. The report keeps
 only the matched run, the scene id, the field and the length: never surrounding source text.
 Exit status 1 when any non-allowed run is found.
 """
@@ -58,6 +59,15 @@ def shared_runs(text, source, minimum):
     return runs
 
 
+def residual(run, allowed):
+    """Longest piece of run left after cutting out every allowed (normalised) phrase."""
+    pieces = [run]
+    for a in allowed:
+        if a:
+            pieces = [x for p in pieces for x in p.split(a)]
+    return max((len(p) for p in pieces), default=0)
+
+
 def check(plan, source_text, minimum=15, allow=()):
     src = normalise(source_text)
     allowed = [normalise(a) for a in allow]
@@ -65,7 +75,7 @@ def check(plan, source_text, minimum=15, allow=()):
     for scene in plan:
         for field, raw in scene_texts(scene):
             for run in shared_runs(normalise(raw), src, minimum):
-                if any(run in a for a in allowed):
+                if residual(run, allowed) < minimum:
                     continue
                 found.append(dict(scene=scene.get('id'), field=field, length=len(run), run=run))
     return found

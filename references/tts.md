@@ -67,10 +67,21 @@ Price checked 2026-11-10: $15.00 per 1M input characters (docs.x.ai/developers/m
 Tell the user the scene count and estimated cost and get approval before the first call.
 
 ```sh
+# Default: one take for the whole plan, cut into audio/scene-NN.wav
+python example/grok_tts_adapter.py --scenes-json scenes-draft.json --out-dir audio
+# Per scene, when only one scene should be redone or a take is too long (>60,000 chars):
 python example/grok_tts_adapter.py --text '장면별 설명입니다.' \
   --wav build/audio/scene-01.wav            # default --voice perseus, --language ko
 # Run again with identical inputs: prints reused without reading XAI_API_KEY.
 ```
+
+- **One take (default)**: scene narrations are joined with a blank line (`\n\n`) and sent with
+  `with_timestamps: true`. The JSON response carries base64 audio plus `graph_chars` /
+  `graph_times`, which map 1:1 onto the request text (checked; the adapter refuses to cut
+  otherwise). Each cut sits midway between the last spoken character of a scene and the first
+  character of the next (observed pause ≈0.3 s). The take's PCM must equal the concatenated
+  scene PCM byte for byte. Keep `take.xai-response.json`, `take.xai-original.wav`, `take.wav`
+  and `take-metadata.json` with the scene WAVs. Use scene gap 0 in the pipeline config.
 
 - **Default voice `perseus`**: use it without an audition. It was chosen once by a user
   listening among 19 male voices (`GET /v1/tts/voices` lists ids and gender only). Audition

@@ -41,6 +41,13 @@ with `--allow`. Keep the transcript inside the private source folder; the report
 the matched run, scene id and length, not surrounding source text. Without a transcript the
 check is unrun: say so.
 
+OCR transcripts break runs at misread characters (one bad glyph splits a 19-character copy
+into 13 + 5), so use `--min 12` on OCR text and keep the deliberately quoted key phrases in an
+`--allow` file. An allowed phrase is cut out of a run before the length test, so a quote plus
+a particle passes while a long copy next to a short quote still fails. For an image-only scan
+without Korean OCR data, `tessdata_best/kor.traineddata` in the private source folder with
+`--tessdata-dir` is enough; keep transcript and model out of the repository.
+
 ## Privacy and copyright
 
 - A user-supplied personal scan is an authorised analysis source. Never copy the PDF, the

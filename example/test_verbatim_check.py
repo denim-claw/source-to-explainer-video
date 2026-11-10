@@ -36,5 +36,16 @@ class VerbatimTest(unittest.TestCase):
         self.assertEqual(v.check(plan, SOURCE, 15, allow=['아주 조용한 밤에 창문 밖을 오래 바라보고']), [])
 
 
+    def test_allowed_phrase_with_small_spillover_passes(self):
+        plan = [dict(id=1, narration='그는 아주 조용한 밤에 창문 밖을 오래 바라보고 있었다는')]
+        allow = ['아주 조용한 밤에 창문 밖을 오래 바라보고']
+        self.assertEqual(v.check(plan, SOURCE, 12, allow=allow), [])
+
+    def test_allowed_phrase_does_not_hide_long_neighbouring_copy(self):
+        plan = [dict(id=1, narration='고양이는 아주 조용한 밤에 창문 밖을 오래 바라보고 있었다 그리고 잠이 들었다')]
+        found = v.check(plan, SOURCE, 8, allow=['조용한 밤에'])
+        self.assertTrue(found)
+
+
 if __name__ == '__main__':
     unittest.main()

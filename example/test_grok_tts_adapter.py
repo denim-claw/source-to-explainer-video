@@ -61,5 +61,50 @@ class GrokAdapterTest(unittest.TestCase):
                 g.synthesize(out, '안녕하세요', 'helios')
 
 
+def fake_take(texts, rate=48000, per_char=0.05, sep='\n\n'):
+    """A take whose audio is per_char seconds per character, with exact timestamps."""
+    full = sep.join(texts)
+    times = [[round(k * per_char, 4), round((k + 1) * per_char, 4)] for k in range(len(full))]
+    n = round(len(full) * per_char * rate)
+    pcm = b''.join(struct.pack('<h', (k % 2000) - 1000) for k in range(n))
+    import base64
+    body = json.dumps(dict(audio=base64.b64encode(streaming_wav(pcm)).decode(), content_type='audio/wav',
+                           duration=n / rate,
+                           audio_timestamps=dict(graph_chars=list(full), graph_times=times))).encode()
+    return pcm, (lambda text: (dict(text=text), body, {'x-trace-id': 'take1'}, 0.1))
+
+
+class GrokTakeTest(unittest.TestCase):
+    def test_cut_points_sit_in_the_pause(self):
+        texts = ['가나다.', '라마.']
+        full = '\n\n'.join(texts)
+        times = [[k * .1, (k + 1) * .1] for k in range(len(full))]
+        cuts = g.cut_samples(texts, list(full), times, 1000, 10_000)
+        # last spoken char of scene 1 ends at 0.4 s; scene 2 starts at 0.6 s
+        self.assertEqual(cuts, [500])
+
+    def test_take_slices_reassemble_and_reuse_offline(self):
+        texts = ['첫 장면입니다.', '둘째 장면입니다.', '끝.']
+        pcm, req = fake_take(texts)
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(g.synthesize_take(d, texts, request=req), 'synthesized')
+            meta = json.loads((pathlib.Path(d) / 'take-metadata.json').read_text())
+            parts = []
+            for k in range(3):
+                with wave.open(str(pathlib.Path(d) / f'scene-{k + 1:02d}.wav')) as w:
+                    parts.append(w.readframes(w.getnframes()))
+            self.assertEqual(b''.join(parts), pcm)
+            self.assertEqual(meta['id'], 'take1')
+            self.assertEqual(len(meta['cut_samples']), 2)
+            with mock.patch.dict(os.environ, {}, clear=True):
+                self.assertEqual(g.synthesize_take(d, texts, request=None), 'reused')
+                with self.assertRaises(ValueError):
+                    g.synthesize_take(d, texts[:2] + ['다른 끝.'])
+
+    def test_refuses_timestamps_that_do_not_match_text(self):
+        with self.assertRaises(ValueError):
+            g.cut_samples(['가.', '나.'], list('가.\n\n다.'), [[0, .1]] * 6, 1000, 1000)
+
+
 if __name__ == '__main__':
     unittest.main()
