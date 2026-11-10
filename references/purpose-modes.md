@@ -43,7 +43,10 @@ optional and off by default: overviews of an already well-organised text add lit
   QA samples straddle the pause (the countdown is the change); make the countdown large
   enough to register (a ring plus an emptying full-width bar worked). Give an application
   question with no fixed answer its own follow-up scene that says so and points to the
-  author's example, instead of leaving it unanswered. Mix recall, connect and apply questions. Show the whole-range diagram at the
+  author's example, instead of leaving it unanswered.
+  Open a recall video with a short silent text card (how to use it: question, pause,
+  answer with page) instead of narrated instructions; viewers rewatch recall videos and
+  a narrated preamble becomes the slowest part. Mix recall, connect and apply questions. Show the whole-range diagram at the
   end, not the start. Recommend watching a day or more after reading; the benefit shows at
   delayed tests, not five minutes later. Answers must lie inside the range.
 - ①: never reveal the answers to its open questions (feedback right after prequestions lowered
