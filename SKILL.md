@@ -223,6 +223,11 @@ page.
   and usage. Edge: preserve original MP3 and decode a pipeline WAV; unavailable id/usage
   stay null. Use `example/edge_tts_adapter.py`; commands in `references/tts.md`.
   Never re-wrap a headered WAV.
+- **Optional xAI Grok TTS** (paid per character, `XAI_API_KEY`): only when the user selects
+  it; Edge stays the default. Default voice `perseus` (low, calm male). Use
+  `example/grok_tts_adapter.py`: it keeps the returned WAV byte-for-byte and writes a
+  pipeline WAV with the same PCM behind true RIFF sizes, because the API's WAV header carries
+  placeholder lengths. State scene count and estimated cost and get approval before calling.
 - Validate completed audio (script text, model, voice, metadata) **before** loading any
   API key; load the key lazily only when audio is genuinely missing. A missing credential
   must not block reuse, re-render or QA.
