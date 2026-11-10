@@ -53,7 +53,11 @@ optional and off by default: overviews of an already well-organised text add lit
   studies. The size of any benefit for adults reading practical books is unmeasured; treat
   the design as a hypothesis unless a learning test is run.
 
-## References (verified to exist; findings checked against abstracts or text)
+## References
+
+Existence and bibliographic data checked against Crossref (ERIC for Mayer 1978) on 2026-11-10;
+the cited findings were checked against abstracts or text by separate review agents, not by a
+human reader.
 
 - Adesope, Trevisan & Sundararajan (2017). Rethinking the use of tests: A meta-analysis of practice testing. *Review of Educational Research*, 87(3). doi:10.3102/0034654316689306
 - Kalyuga, Ayres, Chandler & Sweller (2003). The expertise reversal effect. *Educational Psychologist*, 38(1). doi:10.1207/S15326985EP3801_4
