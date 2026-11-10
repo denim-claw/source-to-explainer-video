@@ -72,10 +72,11 @@ python example/grok_tts_adapter.py --text '장면별 설명입니다.' \
 # Run again with identical inputs: prints reused without reading XAI_API_KEY.
 ```
 
-- **Default voice `perseus`**: chosen by listening among 19 male voices (`GET /v1/tts/voices`
-  lists ids and gender only). Rough autocorrelation F0 on one Korean sentence: helios ~118 Hz,
-  perseus ~123 Hz, altair ~133 Hz (flattest), kepler ~133 Hz. Pitch figures are estimates;
-  pronunciation and naturalness still need human listening.
+- **Default voice `perseus`**: use it without an audition. It was chosen once by a user
+  listening among 19 male voices (`GET /v1/tts/voices` lists ids and gender only). Audition
+  other voices only on request. Rough autocorrelation F0 on one Korean sentence, for that
+  optional audition: helios ~118 Hz, perseus ~123 Hz, altair ~133 Hz (flattest),
+  kepler ~133 Hz. Pitch figures are estimates; pronunciation needs human listening.
 - **WAV header quirk**: the unary response is a streaming-style RIFF whose RIFF/data sizes are
   placeholders (~0x7fffffff). `wave` then reports hours of audio and a full ffmpeg decode ends
   with `corrupt input packet`. The adapter keeps the response unchanged as

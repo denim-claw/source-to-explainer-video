@@ -1,7 +1,7 @@
 ---
 name: source-to-explainer-video
 description: Use when a source or code execution must become a narrated explainer video, including line-level or debugger-style walkthroughs.
-version: 1.5.3
+version: 1.6.0
 author: min (curator) — merged from book-concept-video + video-deliverable-qa + karpathy-output-understanding
 license: MIT
 platforms: [linux, macos]
@@ -55,6 +55,13 @@ replacing a real renderer with a slide deck of static text.
 
 Report every artifact with absolute path, duration, size, SHA256, the QA reports and the
 fidelity report. Never publish or upload without a separate explicit instruction.
+
+### Purpose mode (ask once, before the scene table)
+
+For a book, paper or spec, ask **"어떤 목적이세요?"** and read `references/purpose-modes.md`:
+① 얼개 (map before study), ② 갈무리 (recall after study), ③ 상세 (full understanding).
+No answer → ③. Several modes → one inventory, a separate plan/narration/TTS/master per
+mode in separate directories. Modes ① and ③ show source pages on screen for note-taking.
 
 ### Optional 3D / hybrid mode
 
@@ -159,6 +166,11 @@ For code sources the "range" is the diff plus surrounding files plus test eviden
 
 - Write the scene table first: id, source location, source claim, the *one* visual change
   that explains it, narration, and the exception that must survive.
+- **Pre-TTS fidelity gate.** Before any paid speech call, review narration *and on-screen
+  labels* against the source pages (independent pass; adversarially verify findings) and
+  run `example/verbatim_check.py` against a source transcript kept in the private source
+  folder. Re-run both after every narration edit. If no transcript exists (image-only scan,
+  no OCR language data), report the verbatim check as **unrun**, never as passed.
 - One claim per scene. One action per instruction. One visual change per claim.
 - Mark invented metaphors as invented. If counts/lengths/coordinates are not measured
   data, say so on screen or in the package.
@@ -170,7 +182,8 @@ For code sources the "range" is the diff plus surrounding files plus test eviden
   sentence, caption band. Add one annotation at a time.
 - Produce the clear-text pass even when the output is video: it keeps narration short,
   ordered and free of invented facts.
-- Expected duration: roughly 40–60 s of finished video per scene; a behavioural code review
+- Expected duration: per purpose mode (`references/purpose-modes.md`); otherwise roughly
+  40–60 s of finished video per scene; a behavioural code review
   should stay under ~8 minutes of narration. Code-trace episodes instead use the agreed
   code range and split at scene boundaries when a delivery size limit requires it.
 
@@ -223,6 +236,10 @@ page.
   and usage. Edge: preserve original MP3 and decode a pipeline WAV; unavailable id/usage
   stay null. Use `example/edge_tts_adapter.py`; commands in `references/tts.md`.
   Never re-wrap a headered WAV.
+- **Voice per provider**: use the provider's recommended default voice without an
+  audition — Edge `ko-KR-SunHiNeural` / `en-US-AriaNeural`, Grok `perseus`, Gemini as in
+  `references/tts.md`. Run a voice audition (same sentence, a few voices, local listening
+  page) only when the user asks for one; state its cost first for paid providers.
 - **Optional xAI Grok TTS** (paid per character, `XAI_API_KEY`): only when the user selects
   it; Edge stays the default. Default voice `perseus` (low, calm male). Use
   `example/grok_tts_adapter.py`: it keeps the returned WAV byte-for-byte and writes a
