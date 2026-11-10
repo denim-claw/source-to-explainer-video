@@ -58,6 +58,34 @@ older clients can break when the service changes. 7.3.1 passed a live Korean smo
 Test offline: `python -m unittest discover -s example -p test_edge_tts_adapter.py -v`.
 Naturalness and pronunciation still require human listening.
 
+## Optional xAI Grok TTS (paid, `XAI_API_KEY`)
+
+Opt-in only; Edge remains the default and there is no automatic switch between providers.
+Endpoint `POST https://api.x.ai/v1/tts` with `text`, `voice_id`, `language` (`ko` for Korean)
+and `output_format` (`codec: wav`, `sample_rate: 48000`); there is no model field.
+Price checked 2026-11-10: $15.00 per 1M input characters (docs.x.ai/developers/models).
+Tell the user the scene count and estimated cost and get approval before the first call.
+
+```sh
+python example/grok_tts_adapter.py --text '장면별 설명입니다.' \
+  --wav build/audio/scene-01.wav            # default --voice perseus, --language ko
+# Run again with identical inputs: prints reused without reading XAI_API_KEY.
+```
+
+- **Default voice `perseus`**: chosen by listening among 19 male voices (`GET /v1/tts/voices`
+  lists ids and gender only). Rough autocorrelation F0 on one Korean sentence: helios ~118 Hz,
+  perseus ~123 Hz, altair ~133 Hz (flattest), kepler ~133 Hz. Pitch figures are estimates;
+  pronunciation and naturalness still need human listening.
+- **WAV header quirk**: the unary response is a streaming-style RIFF whose RIFF/data sizes are
+  placeholders (~0x7fffffff). `wave` then reports hours of audio and a full ffmpeg decode ends
+  with `corrupt input packet`. The adapter keeps the response unchanged as
+  `scene-NN.xai-original.wav`, validates fmt (PCM, mono, 48 kHz, 16-bit) and writes
+  `scene-NN.wav` with identical PCM bytes and true sizes; both hashes plus `pcm_sha256` go in
+  the metadata. This is a header repair, not a re-encode or a guessed container.
+- Metadata: provider, voice, language, speed, transcript, `x-trace-id` as `id`, input
+  character count as usage, estimated cost, measured seconds. The key is never recorded.
+- Test offline: `python -m unittest discover -s example -p test_grok_tts_adapter.py -v`.
+
 ## Reuse rules (this is where money is saved)
 
 ```python
