@@ -38,8 +38,9 @@ for i, s in enumerate(S):
         if params is None:
             params = par
         assert par == params, f'scene {i + 1} audio format differs from scene 1'
-        chunks.append(pcm)
-    s.update(start=start, duration=dur + GAP, speech_duration=dur,
+        chunks.append((pcm, s.get('hold', 0.0)))
+    hold = s.get('hold', 0.0)  # optional silent thinking pause after the speech (retrieval questions)
+    s.update(start=start, duration=dur + GAP + hold, speech_duration=dur, hold=hold,
              audio=f'audio/scene-{i + 1:02d}.wav')
 
     sentences = [x.strip() for x in re.findall(r'[^.!?]+[.!?]?', s['narration']) if x.strip()]
@@ -96,9 +97,10 @@ if not PROOF:
         out.setsampwidth(params[1])
         out.setframerate(params[2])
         gap = bytes(round(GAP * params[2]) * params[0] * params[1])
-        for pcm in chunks:
+        for pcm, hold in chunks:
             out.writeframes(pcm)
             out.writeframes(gap)
+            out.writeframes(bytes(round(hold * params[2]) * params[0] * params[1]))
         out.writeframes(bytes(max(0, round((duration - start) * params[2])) * params[0] * params[1]))
 
     def stamp(t):

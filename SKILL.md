@@ -58,10 +58,11 @@ fidelity report. Never publish or upload without a separate explicit instruction
 
 ### Purpose mode (ask once, before the scene table)
 
-For a book, paper or spec, ask **"어떤 목적이세요?"** and read `references/purpose-modes.md`:
-① 얼개 (map before study), ② 갈무리 (recall after study), ③ 상세 (full understanding).
-No answer → ③. Several modes → one inventory, a separate plan/narration/TTS/master per
-mode in separate directories. Modes ① and ③ show source pages on screen for note-taking.
+For a book, paper or spec, ask **"어떤 목적이세요?"** and read `references/purpose-modes.md`.
+Default study flow: ③ 상세 (full, page marks on every scene) → read the source → ② 갈무리
+(retrieval questions with a visible pause, a day or more later). ① 얼개 (concept-first map,
+open questions left unanswered) is optional and off by default. No answer → ③. Several
+modes → one inventory, a separate plan/narration/TTS/master per mode in separate directories.
 
 ### Optional 3D / hybrid mode
 
