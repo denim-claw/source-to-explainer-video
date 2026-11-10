@@ -39,7 +39,11 @@ optional and off by default: overviews of an already well-organised text add lit
   question at section ends of long chapters (Szpunar et al. 2013); it costs a new take.
 - ②: put each question in its own scene with a `hold` of about 4 s (6 s for an application
   question) and an on-screen countdown; the pause is silence added in preparation, not a
-  paid call. Mix recall, connect and apply questions. Show the whole-range diagram at the
+  paid call. Set `transition_at_pause: true` on question scenes so the semantic before/after
+  QA samples straddle the pause (the countdown is the change); make the countdown large
+  enough to register (a ring plus an emptying full-width bar worked). Give an application
+  question with no fixed answer its own follow-up scene that says so and points to the
+  author's example, instead of leaving it unanswered. Mix recall, connect and apply questions. Show the whole-range diagram at the
   end, not the start. Recommend watching a day or more after reading; the benefit shows at
   delayed tests, not five minutes later. Answers must lie inside the range.
 - ①: never reveal the answers to its open questions (feedback right after prequestions lowered

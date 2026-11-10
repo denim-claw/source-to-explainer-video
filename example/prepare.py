@@ -73,6 +73,8 @@ for i, s in enumerate(S):
         return hits[0]['start'] - start
 
     s['transition_at'] = match(s['transition_keyword'])
+    if s.get('hold') and s.get('transition_at_pause'):  # question scenes: the change is the pause itself
+        s['transition_at'] = s['speech_duration']
     s['cues'] = [dict(at=match(c['keyword']), text=c['text'], focus=None, source_keyword=c['keyword'])
                  for c in s['cue_definitions']]
     s['cues'].sort(key=lambda c: c['at'])
