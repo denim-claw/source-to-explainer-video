@@ -1,0 +1,8 @@
+{
+  "width":720,"height":1280,"fps":30,
+  "paper":"#101820","ink":"#EDF3F5","muted":"#A8B4C2",
+  "accent":"#51DCCB","secondary":"#7CAFF2","rule":"#395466",
+  "worker_fill":"#243e57","lead_fill":"#20463f","stroke":3,
+  "a08_duration":13.066666666666666,"a08_second":6.664,"a09_worker":3.848,
+  "mapping":{"paper":"incumbent BG","ink":"incumbent FG (dark)","accent":"incumbent CYAN","secondary":"incumbent BLUE","light_ink":"#282b29","light_paper":"#faf7ef"}
+}

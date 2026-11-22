@@ -1,7 +1,7 @@
 ---
 name: source-to-explainer-video
 description: Use when a source or code execution must become a narrated explainer video, including line-level or debugger-style walkthroughs.
-version: 1.7.0
+version: 1.7.1
 author: min (curator) — merged from book-concept-video + video-deliverable-qa + karpathy-output-understanding
 license: MIT
 platforms: [linux, macos]
@@ -25,6 +25,12 @@ interactive page), `book-concept-video` (chapter → narrated concept video) and
 A public copy with runnable examples lives at
 https://github.com/denim-claw/source-to-explainer-video (same SKILL.md plus `example/`,
 `example-concept/`, `example-architecture/`, `example-debugger/` and `example-code-trace/`).
+
+For human relationships, historical actions, or spatial scenes, consider optional
+[SVG line art over Pillow](references/line-art-pillow-hybrid.md) when it clarifies the
+narration. For AI, data, and systems, default to labeled diagrams and exact charts.
+Keep the project's existing theme, narration, and captions; test one 15–20 second
+scene before adopting a new visual treatment across a video.
 
 ## When to use
 
